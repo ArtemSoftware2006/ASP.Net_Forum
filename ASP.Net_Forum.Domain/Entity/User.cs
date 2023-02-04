@@ -17,8 +17,8 @@ namespace ASP.Net_Forum.Domain.Entity
         public string Password { get; set; }
         public string Email { get; set; }
         [Column("Phone_number")]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         [Column("Card_number")]
-        public string CardNumber { get; set; }
+        public string? CardNumber { get; set; }
     }
 }

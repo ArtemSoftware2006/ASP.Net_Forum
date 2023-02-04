@@ -1,4 +1,7 @@
-﻿using ASP.Net_Forum.Models;
+﻿using ASP.Net_Forum.DAL;
+using ASP.Net_Forum.DAL.Interfaces;
+using ASP.Net_Forum.DAL.Repositories;
+using ASP.Net_Forum.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,6 +10,8 @@ namespace ASP.Net_Forum.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+
+        private readonly AppDbContext _appDbContext;
 
         public HomeController(ILogger<HomeController> logger)
         {

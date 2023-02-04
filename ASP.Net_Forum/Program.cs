@@ -1,4 +1,6 @@
 using ASP.Net_Forum.DAL;
+using ASP.Net_Forum.DAL.Interfaces;
+using ASP.Net_Forum.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Configuration;
@@ -16,6 +18,7 @@ var connection = config.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 31))));
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.DAL.Interfaces
 {
-    internal class IBaseRepository
+    public interface IBaseRepository<T>
     {
+        Task<bool> Create(T entity);
+        Task<T> Get(int id);
+        Task<IEnumerable<T>> GetAll();
+
+        Task<bool> Delete(T entity);
+
     }
 }

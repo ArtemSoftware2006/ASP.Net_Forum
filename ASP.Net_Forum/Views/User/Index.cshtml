@@ -1,0 +1,15 @@
+﻿@using ASP.Net_Forum.Domain.Entity;
+@model List<User>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Профиль</h1>
+@foreach (var user in Model)
+{
+    <p>@user.Id</p>
+    <p>@user.Login</p>
+    <p>@user.Password</p>
+    <p>@user.Email</p>
+}
+
