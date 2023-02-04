@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ASP.Net_Forum.DAL\ASP.Net_Forum.DAL.csproj" />
+    <ProjectReference Include="..\ASP.Net_Forum.Domain\ASP.Net_Forum.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,22 +1,29 @@
 ﻿using ASP.Net_Forum.DAL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Service.Interfaces;
+using ASP.Net_Forum.Domain.Enum;
 
 namespace ASP.Net_Forum.Controllers.User
 {
     public class UserController : Controller
     {
-        private readonly IUserRepository UserRepository;
+        private readonly IUserService _userService;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserService userService)
         {
-            UserRepository = userRepository;
+            _userService = userService;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            UserRepository.Create(new Domain.Entity.User() { Id = 0, Age = 10, Login = "Root", Password = "1232", Email = "12@wer" });
+            var response = await _userService.GetUser();
 
-            return View(UserRepository.GetAll().ToList());
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(response.Data);
+            }
+
+            return RedirectToAction("Error");
         }
     }
 }

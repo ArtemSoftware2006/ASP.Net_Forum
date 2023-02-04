@@ -17,7 +17,7 @@ namespace ASP.Net_Forum.DAL.Repositories
 
         public AppDbContext DbContext { get; set; }
 
-        public bool Create(User entity)
+        public async Task<bool> Create(User entity)
         {
             DbContext.Add(entity);
             DbContext.SaveChanges();
@@ -25,22 +25,22 @@ namespace ASP.Net_Forum.DAL.Repositories
             return true;
         }
 
-        public bool Delete(User entity)
+        public Task<bool> Delete(User entity)
         {
             throw new NotImplementedException();
         }
 
-        public User Get(int id)
+        public Task<User> Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<User> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
             return DbContext.User.ToList();
         }
 
-        public User GetByLogin(string login)
+        public Task<User> GetByLogin(string login)
         {
             throw new NotImplementedException();
         }
