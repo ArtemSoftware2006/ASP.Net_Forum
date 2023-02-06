@@ -14,5 +14,6 @@ namespace ASP.Net_Forum.DAL.Interfaces
 
         Task<bool> Delete(T entity);
 
+        Task<T> Update(T entity);
     }
 }

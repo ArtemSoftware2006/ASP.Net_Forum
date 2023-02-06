@@ -21,7 +21,7 @@ namespace Service.Implementations
             _userRepository = userRepository;
         }
 
-        public async Task<BaseResponse<IEnumerable<User>>> GetUser()
+        public async Task<BaseResponse<IEnumerable<User>>> GetUsers()
         {
             var baseResponse = new BaseResponse<IEnumerable<User>>();
             try
@@ -163,6 +163,41 @@ namespace Service.Implementations
                 {
                     StatusCode = StatusCode.InternalServerError,
                     Description = $"[Create(User)] : {ex.Message})"
+                };
+            }
+        }
+
+        public async Task<BaseResponse<bool>> Edit(int id, UserViewModel model)
+        {
+            var baseResponse = new BaseResponse<bool>();
+            try
+            {
+                var user = await _userRepository.Get(id);
+                if (user != null)
+                {
+                    baseResponse.StatusCode = StatusCode.NotFound;
+                    baseResponse.Description = "User not found";
+                }
+                else
+                {
+                    user.Login = model.Login;
+                    user.Password = model.Password;
+                    user.Age = model.Age;
+                    user.Email = model.Email;
+                    user.CardNumber = model.CardNumber;
+                    user.PhoneNumber = model.PhoneNumber;
+
+                    await _userRepository.Update(user);
+                }
+
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"[Edit(User)] : {ex.Message})"
                 };
             }
         }

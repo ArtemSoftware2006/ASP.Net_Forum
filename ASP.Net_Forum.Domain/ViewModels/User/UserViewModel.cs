@@ -9,6 +9,7 @@ namespace ASP.Net_Forum.Domain.ViewModels.User
 {
     public class UserViewModel
     {
+        public int Id { get; set; }
         public int Age { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }

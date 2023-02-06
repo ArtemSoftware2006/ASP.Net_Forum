@@ -48,5 +48,13 @@ namespace ASP.Net_Forum.DAL.Repositories
         {
             return await DbContext.User.FirstOrDefaultAsync(x => x.Login == login);
         }
+
+        public async Task<User> Update(User entity)
+        {
+             DbContext.User.Update(entity);
+             await DbContext.SaveChangesAsync();
+
+             return entity;
+        }
     }
 }
