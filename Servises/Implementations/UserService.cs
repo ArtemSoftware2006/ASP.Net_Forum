@@ -40,10 +40,101 @@ namespace Service.Implementations
             {
                 return new BaseResponse<IEnumerable<User>>()
                 {
+                    StatusCode = StatusCode.InternalServerError,
                     Description = $"[GetUsers] : {ex.Message}"
                 };
             }
         }
-        public async Task<IBaseResponse<User>> GetUser
+        public async Task<BaseResponse<User>> Get(int id)
+        {
+            try
+            {
+                var baseResponse = new BaseResponse<User>();
+                var user = await _userRepository.Get(id);
+                if (user != null)
+                {
+                    baseResponse.StatusCode = StatusCode.NotFound;
+                    baseResponse.Description = "User not found";
+                }
+                else
+                {
+                    baseResponse.Data = user; 
+                    baseResponse.StatusCode = StatusCode.OK;
+                    baseResponse.Description = "OK";
+                }
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<User>
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"[Get(User)] : {ex.Message})"
+                };
+            }
+        }
+        public async Task<BaseResponse<User>> GetByLogin(string login)
+        {
+            try
+            {
+                var baseResponse = new BaseResponse<User>();
+                var user = await _userRepository.GetByLogin(login);
+                if (user != null)
+                {
+                    baseResponse.StatusCode = StatusCode.NotFound;
+                    baseResponse.Description = "User not found";
+                }
+                else
+                {
+                    baseResponse.Data = user;
+                    baseResponse.StatusCode = StatusCode.OK;
+                    baseResponse.Description = "OK";
+                }
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<User>
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"[GetByLogin(User)] : {ex.Message})"
+                };
+            }
+        }
+        public async Task<BaseResponse<bool>> Delete(int id)
+        {
+            var baseResponse = new BaseResponse<bool>();
+            try
+            {
+                var user = await _userRepository.Get(id);
+
+                if (user == null)
+                {
+                    baseResponse.StatusCode = StatusCode.NotFound;
+                    baseResponse.Description = "User not found";
+                }
+                else
+                {
+                    baseResponse.Data = true;
+                    baseResponse.StatusCode = StatusCode.OK;
+                    baseResponse.Description = "OK";
+
+                    await _userRepository.Delete(user);
+                }
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"[Delete(User)] : {ex.Message})"
+                };
+            }
+        }
+        public async Task<BaseResponse<bool>> Create()
+        {
+
+        }
     }
 }
