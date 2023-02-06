@@ -1,5 +1,6 @@
 ﻿using ASP.Net_Forum.DAL.Interfaces;
 using ASP.Net_Forum.Domain.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,12 @@ namespace ASP.Net_Forum.DAL.Repositories
 {
     public class UserRepository : IUserRepository
     {
+        public AppDbContext DbContext { get; set; }
+
         public UserRepository(AppDbContext dbContext)
         {
             DbContext = dbContext;
         }
-
-        public AppDbContext DbContext { get; set; }
 
         public async Task<bool> Create(User entity)
         {
@@ -25,14 +26,17 @@ namespace ASP.Net_Forum.DAL.Repositories
             return true;
         }
 
-        public Task<bool> Delete(User entity)
+        public async Task<bool> Delete(User entity)
         {
-            throw new NotImplementedException();
+            DbContext.Remove(entity);
+            await DbContext.SaveChangesAsync();
+
+            return true;
         }
 
-        public Task<User> Get(int id)
+        public async Task<User> Get(int id)
         {
-            throw new NotImplementedException();
+            return await DbContext.User.FirstOrDefaultAsync(x => x.Id == id); 
         }
 
         public async Task<IEnumerable<User>> GetAll()
@@ -40,9 +44,9 @@ namespace ASP.Net_Forum.DAL.Repositories
             return DbContext.User.ToList();
         }
 
-        public Task<User> GetByLogin(string login)
+        public async Task<User> GetByLogin(string login)
         {
-            throw new NotImplementedException();
+            return await DbContext.User.FirstOrDefaultAsync(x => x.Login == login);
         }
     }
 }

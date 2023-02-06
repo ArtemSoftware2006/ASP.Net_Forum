@@ -20,7 +20,7 @@ namespace Service.Implementations
             _userRepository = userRepository;
         }
 
-        public async Task<IBaseResponse<IEnumerable<User>>> GetUser()
+        public async Task<BaseResponse<IEnumerable<User>>> GetUser()
         {
             var baseResponse = new BaseResponse<IEnumerable<User>>();
             try
@@ -44,5 +44,6 @@ namespace Service.Implementations
                 };
             }
         }
+        public async Task<IBaseResponse<User>> GetUser
     }
 }
