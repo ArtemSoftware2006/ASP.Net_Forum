@@ -2,6 +2,7 @@
 using ASP.Net_Forum.Domain.Entity;
 using ASP.Net_Forum.Domain.Enum;
 using ASP.Net_Forum.Domain.Response;
+using ASP.Net_Forum.Domain.ViewModels.User;
 using Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -132,9 +133,38 @@ namespace Service.Implementations
                 };
             }
         }
-        public async Task<BaseResponse<bool>> Create()
+        public async Task<BaseResponse<bool>> Create(UserViewModel userViewModel)
         {
+            var baseRespnse = new BaseResponse<bool>();
 
+            try
+            {
+                var user = new User()
+                {
+                    Age = userViewModel.Age,
+                    Email = userViewModel.Email,
+                    CardNumber = userViewModel.CardNumber,
+                    PhoneNumber = userViewModel.PhoneNumber,
+                    Login = userViewModel.Login,
+                    Password = userViewModel.Password,
+                };
+
+                await _userRepository.Create(user);
+
+                baseRespnse.Data = true;
+                baseRespnse.Description = "OK";
+                baseRespnse.StatusCode = StatusCode.OK;
+
+                return baseRespnse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"[Create(User)] : {ex.Message})"
+                };
+            }
         }
     }
 }
