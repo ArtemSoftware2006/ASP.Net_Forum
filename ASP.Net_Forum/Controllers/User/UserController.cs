@@ -34,9 +34,12 @@ namespace ASP.Net_Forum.Controllers.User
         public async Task<IActionResult> Registr() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Registr(RegistrViewModel)
+        public async Task<IActionResult> Registr(RegistrViewModel model)
         {
-            ModelState.
+            if (ModelState.IsValid)
+            {
+                var response = await _userService.Registr(model);
+            }
         }
 
         [HttpGet]
