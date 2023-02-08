@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.Domain.ViewModels.User
 {
-    public class RegistrViewmodel
+    public class RegistrViewModel
     {
         public int Age { get; set; }
         public string Login { get; set; }

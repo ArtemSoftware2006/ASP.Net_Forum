@@ -5,6 +5,7 @@ using ASP.Net_Forum.Domain.Enum;
 using ASP.Net_Forum.Domain.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;
 using ASP.Net_Forum.Domain.Response;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ASP.Net_Forum.Controllers.User
 {
@@ -28,6 +29,14 @@ namespace ASP.Net_Forum.Controllers.User
             }
 
             return RedirectToAction("Error");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Registr() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> Registr(RegistrViewModel)
+        {
+            ModelState.
         }
 
         [HttpGet]
