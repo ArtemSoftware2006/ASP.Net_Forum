@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.Domain.Enum
 {
-    internal class Role
+    public enum Role
     {
+        Admin = 0,
+        User = 1,
+        Expert = 2,
+        ContentManager = 3,
     }
 }
