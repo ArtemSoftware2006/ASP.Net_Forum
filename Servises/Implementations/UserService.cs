@@ -21,7 +21,7 @@ namespace Service.Implementations
             _userRepository = userRepository;
         }
 
-        public async Task<BaseResponse<IEnumerable<User>>> GetUsers()
+        public async Task<BaseResponse<IEnumerable<User>>> GetAll()
         {
             var baseResponse = new BaseResponse<IEnumerable<User>>();
             try
@@ -166,7 +166,6 @@ namespace Service.Implementations
                 };
             }
         }
-
         public async Task<BaseResponse<bool>> Edit(int id, UserViewModel model)
         {
             var baseResponse = new BaseResponse<bool>();

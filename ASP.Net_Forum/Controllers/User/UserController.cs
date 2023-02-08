@@ -20,7 +20,7 @@ namespace ASP.Net_Forum.Controllers.User
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
-            var response = await _userService.GetUsers();
+            var response = await _userService.GetAll();
 
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
