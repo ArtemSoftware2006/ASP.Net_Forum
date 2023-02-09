@@ -39,11 +39,6 @@ namespace ASP.Net_Forum.DAL.Repositories
             return await DbContext.User.FirstOrDefaultAsync(x => x.Id == id); 
         }
 
-        public async Task<IEnumerable<User>> GetAll()
-        {
-            return DbContext.User.ToList();
-        }
-
         public async Task<User> GetByLogin(string login)
         {
             return await DbContext.User.FirstOrDefaultAsync(x => x.Login == login);
@@ -55,6 +50,11 @@ namespace ASP.Net_Forum.DAL.Repositories
              await DbContext.SaveChangesAsync();
 
              return entity;
+        }
+
+        public IQueryable<User> GetAll()
+        {
+            return DbContext.User;
         }
     }
 }

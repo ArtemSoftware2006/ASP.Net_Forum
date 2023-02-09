@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace ASP.Net_Forum.Domain.Entity
     [Table("Users")]
     public class User
     {
+        [Key]
         public int Id { get; set; }
         public int Age { get; set; }
         public string Login{ get; set; }

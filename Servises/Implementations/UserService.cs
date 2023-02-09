@@ -1,12 +1,15 @@
 ﻿using ASP.Net_Forum.DAL.Interfaces;
 using ASP.Net_Forum.Domain.Entity;
 using ASP.Net_Forum.Domain.Enum;
+using ASP.Net_Forum.Domain.Helpers;
 using ASP.Net_Forum.Domain.Response;
 using ASP.Net_Forum.Domain.ViewModels.User;
 using Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Security;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -199,6 +202,69 @@ namespace Service.Implementations
                     Description = $"[Edit(User)] : {ex.Message})"
                 };
             }
+        }
+
+        public async Task<BaseResponse<ClaimsIdentity>> Registr(RegistrViewModel model)
+        {
+            try
+            {
+                var user = await _userRepository.GetAll().FirstOrDefault(x => x.Login == model.Login);
+
+                if(user != null)
+                {
+                    return new BaseResponse<ClaimsIdentity>
+                    {
+                        StatusCode = StatusCode.NotFound,
+                        Description = "Пользователь с таким именем уже существует."
+                    };
+                }
+                else
+                {
+                    user = new User()
+                    {
+                        Login = model.Login,
+                        Password = HashPasswordHelper.HashPassword(model.Password),
+                        Age = model.Age,
+                        Email = model.Email,
+                        CardNumber = model.CardNumber,
+                        PhoneNumber = model.PhoneNumber,
+
+                        Role = Role.User,
+                    };
+
+
+                    var result = Authenticate(user);
+
+                    _userRepository.Create(user);
+
+                    return new BaseResponse<ClaimsIdentity>
+                    {
+                        StatusCode = StatusCode.OK,
+                        Description = "OK",
+                        Data = result,
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<ClaimsIdentity>
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"[Registr(User)] : {ex.Message})"
+                };
+            }
+        }
+
+        private ClaimsIdentity Authenticate(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
+            };
+
+            return new ClaimsIdentity(claims, "ApplicationCookie",
+                ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
         }
     }
 }
