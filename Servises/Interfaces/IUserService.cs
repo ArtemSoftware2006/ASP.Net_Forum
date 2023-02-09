@@ -19,5 +19,6 @@ namespace Service.Interfaces
         Task<BaseResponse<bool>> Delete(int id);
         Task<BaseResponse<bool>> Create(UserViewModel userViewModel);
         Task<BaseResponse<ClaimsIdentity>> Registr(RegistrViewModel model);
+        Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model);
     }
 }

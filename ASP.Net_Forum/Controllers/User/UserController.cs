@@ -6,6 +6,9 @@ using ASP.Net_Forum.Domain.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;
 using ASP.Net_Forum.Domain.Response;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace ASP.Net_Forum.Controllers.User
 {
@@ -39,7 +42,16 @@ namespace ASP.Net_Forum.Controllers.User
             if (ModelState.IsValid)
             {
                 var response = await _userService.Registr(model);
+                if(response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(response.Data));
+
+                    return View();
+                }
+                ModelState.AddModelError("", response.Description);
             }
+            return View(model);
         }
 
         [HttpGet]

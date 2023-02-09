@@ -29,7 +29,7 @@ namespace Service.Implementations
             var baseResponse = new BaseResponse<IEnumerable<User>>();
             try
             {
-                var users = await _userRepository.GetAll();
+                var users = _userRepository.GetAll();
                 if (users.Count() == 0)
                 {
                     baseResponse.StatusCode = StatusCode.NotFound;
@@ -208,7 +208,7 @@ namespace Service.Implementations
         {
             try
             {
-                var user = await _userRepository.GetAll().FirstOrDefault(x => x.Login == model.Login);
+                var user = _userRepository.GetAll().FirstOrDefault(x => x.Login == model.Login);
 
                 if(user != null)
                 {
