@@ -254,6 +254,37 @@ namespace Service.Implementations
                 };
             }
         }
+        public async Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model)
+        {
+            try
+            {
+                var user = _userRepository.GetAll().FirstOrDefault(x => x.Login == model.Login && x.Password == HashPasswordHelper.HashPassword(model.Password));
+                if (user != null)
+                {
+                    var result = Authenticate(user);
+
+                    return new BaseResponse<ClaimsIdentity>
+                    {
+                        StatusCode = StatusCode.OK,
+                        Description = "OK",
+                        Data = result,
+                    };
+                }
+                return new BaseResponse<ClaimsIdentity>
+                {
+                    StatusCode = StatusCode.NotFound,
+                    Description = "Неверный логин или пароль.",
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<ClaimsIdentity>
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"[Login(User)] : {ex.Message})",
+                };
+            }
+        }
 
         private ClaimsIdentity Authenticate(User user)
         {

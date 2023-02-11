@@ -33,6 +33,8 @@ namespace ASP.Net_Forum.Controllers.User
 
             return RedirectToAction("Error");
         }
+
+
         [HttpGet]
         public async Task<IActionResult> Registr() => View();
 
@@ -54,6 +56,31 @@ namespace ASP.Net_Forum.Controllers.User
             return View(model);
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> Login() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _userService.Login(model);
+
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                {
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(response.Data));
+
+                    return View();
+                }
+                ModelState.AddModelError("", response.Description);
+            }
+            return View(model);
+        }
+
+
+
         [HttpGet]
         public async Task<IActionResult> GetUser(int id)
         {
@@ -64,6 +91,8 @@ namespace ASP.Net_Forum.Controllers.User
             }
             return RedirectToAction("Error");
         }
+
+
 
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int id)
@@ -76,6 +105,8 @@ namespace ASP.Net_Forum.Controllers.User
 
             return RedirectToAction("Error");
         }
+
+
 
         [HttpGet]
         [Authorize(Roles = "admin")]
@@ -95,6 +126,8 @@ namespace ASP.Net_Forum.Controllers.User
 
             return RedirectToAction("Error");
         }
+
+
 
         [HttpPost]
         [Authorize(Roles = "admin")]
@@ -122,6 +155,13 @@ namespace ASP.Net_Forum.Controllers.User
                 }
             }
             return RedirectToAction("Error");
+        }
+
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return View();
         }
     }
 }

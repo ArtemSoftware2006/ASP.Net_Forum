@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.Net_Forum.Domain", "ASP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.Net_Forum.DAL", "ASP.Net_Forum.DAL\ASP.Net_Forum.DAL.csproj", "{6E96E720-7967-4114-A505-1A13BB71E760}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Servises\Service.csproj", "{FB294A05-1097-4CE2-AE1E-EDABAD3DA277}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.Net_Forum.Service", "Servises\ASP.Net_Forum.Service.csproj", "{FB294A05-1097-4CE2-AE1E-EDABAD3DA277}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
