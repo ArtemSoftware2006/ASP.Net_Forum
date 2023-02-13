@@ -44,18 +44,32 @@ namespace ASP.Net_Forum.Controllers.User
             if (ModelState.IsValid)
             {
                 var response = await _userService.Registr(model);
+
                 if(response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(response.Data));
 
-                    return View();
+                    return Redirect("~/Home/Index");
                 }
+
                 ModelState.AddModelError("", response.Description);
             }
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Profil()
+        {
+            var result = await _userService.GetByLogin(User.Identity.Name);
+
+            if (result.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(result.Data);
+            }
+
+            return RedirectToAction("Error");
+        }
 
         [HttpGet]
         public async Task<IActionResult> Login() => View();
@@ -72,16 +86,15 @@ namespace ASP.Net_Forum.Controllers.User
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(response.Data));
 
-                    return View();
                 }
                 ModelState.AddModelError("", response.Description);
             }
-            return View(model);
-        }
+			return Redirect("~/Home/Index");
+		}
 
 
 
-        [HttpGet]
+		[HttpGet]
         public async Task<IActionResult> GetUser(int id)
         {
             var response = await _userService.Get(id);
@@ -161,7 +174,7 @@ namespace ASP.Net_Forum.Controllers.User
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return View();
+            return Redirect("~/Home/Index");
         }
     }
 }

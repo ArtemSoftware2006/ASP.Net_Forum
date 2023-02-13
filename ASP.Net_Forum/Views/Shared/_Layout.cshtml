@@ -24,7 +24,22 @@
                         @if(!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-black border border-2 " asp-area="" asp-controller="User" asp-action="Login"> Вход/Регистрация</a>
+
+                                <div class="dropdown">
+
+                                    <button class="btn text-black dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Войти</button>
+
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li class="dropdown-item">
+                                            <a class="dropdown-item-text" asp-area="" asp-controller="User" asp-action="Login">Вход</a>
+                                        </li>
+                                        <li class="dropdown-item">
+                                            <a class="dropdown-item-text" asp-area="" asp-controller="User" asp-action="Registr">Регистрация</a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                
                             </li>
                         }
                         @if(User.Identity.IsAuthenticated)

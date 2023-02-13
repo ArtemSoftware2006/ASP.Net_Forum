@@ -17,12 +17,20 @@
             <input type="text" class="form-control" name="Password" placeholder="Ваш пароль" />
         </div>
 
-        <button type="submit" class="btn btn-primary">Войти</button>
 
-        <div class="p-3">
-            <label class="form-label">Уже есть акаунт?</label> <br />
-            <a asp-area="" asp-controller="User" asp-action="Registr">Регистрация</a>
+        <div class="d-flex">
+
+            <div class="flex-column me-3">
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </div>
+
+            <div class="flex-column ms-3">
+                <label class="form-label">Ещё нет акаунта?</label> <br />
+                <a asp-area="" asp-controller="User" asp-action="Registr">Регистрация</a>
+            </div>
+
         </div>
+
 
     </form>
 </div>

@@ -83,7 +83,7 @@ namespace Service.Implementations
             {
                 var baseResponse = new BaseResponse<User>();
                 var user = await _userRepository.GetByLogin(login);
-                if (user != null)
+                if (user == null)
                 {
                     baseResponse.StatusCode = StatusCode.NotFound;
                     baseResponse.Description = "User not found";
@@ -226,7 +226,6 @@ namespace Service.Implementations
                         Password = HashPasswordHelper.HashPassword(model.Password),
                         Age = model.Age,
                         Email = model.Email,
-                        CardNumber = model.CardNumber,
                         PhoneNumber = model.PhoneNumber,
 
                         Role = Role.User,

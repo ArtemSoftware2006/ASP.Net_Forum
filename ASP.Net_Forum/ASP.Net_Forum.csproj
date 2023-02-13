@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\User\Logout.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.3" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
   </ItemGroup>
@@ -14,6 +18,18 @@
   <ItemGroup>
     <ProjectReference Include="..\ASP.Net_Forum.DAL\ASP.Net_Forum.DAL.csproj" />
     <ProjectReference Include="..\Servises\ASP.Net_Forum.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\User\Logout.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\User\Logout.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\User\Logout.cshtml" />
   </ItemGroup>
 
 </Project>

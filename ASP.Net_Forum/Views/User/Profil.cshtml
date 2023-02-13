@@ -1,0 +1,40 @@
+﻿
+@model ASP.Net_Forum.Domain.Entity.User;
+
+<div class="row">
+
+	<div class="col-6">
+
+            <div class="mb-3">
+                <label class="form-label">Логин</label>
+                <label class="border border-1 p-2"> @Model.Login </label>
+            </div>
+
+            <div class="mb-3">
+                 <label class="form-label">Возраст</label>
+                 <label class="border border-1 p-2"> @Model.Age</label>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Почта</label>
+                <label class="border border-1 p-2"> @Model.Email </label>
+            </div>
+
+            <div class="mb-3">
+                 <label class="form-label">Телефон</label>
+                 <label class="border border-1 p-2"> @Model.PhoneNumber </label>
+            </div>
+
+            <div class="mb-3">
+                 <label class="form-label">Номер карты</label>
+                 <label class="border border-1 p-2"> @Model.CardNumber</label>
+            </div>
+
+            <div class="btn-group">
+                 <button class="btn btn-primary">
+                    <a asp-area="" asp-controller="User" asp-action="Logout" >Выйти</a>
+                </button>
+            </div>
+
+</div>
+

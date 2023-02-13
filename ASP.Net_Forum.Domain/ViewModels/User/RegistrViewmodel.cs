@@ -30,8 +30,5 @@ namespace ASP.Net_Forum.Domain.ViewModels.User
         [Column("Phone_number")]
         [DataType(DataType.PhoneNumber)]
         public string? PhoneNumber { get; set; }
-        [Column("Card_number")]
-        [DataType(DataType.CreditCard)]
-        public string? CardNumber { get; set; }
     }
 }

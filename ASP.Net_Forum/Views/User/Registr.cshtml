@@ -1,7 +1,65 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using ASP.Net_Forum.Domain.ViewModels.User;
+
 @{
+    @model  RegistrViewModel;
 }
 
+<div class="row">
 
+    <form class="form-check" method="post" asp-controller="User" asp-action="Registr">
+
+        <div class="col-6">
+
+            <div class="mb-3">
+                <label class="form-label">Логин</label>
+                <input type="text" class="form-control" name="Login" placeholder="Введите логин" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Пароль</label>
+                <input type="password" class="form-control" name="Password" placeholder="Введите пароль" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Подтвердить пароль</label>
+                <input type="password" class="form-control" name="ConfimPassword" placeholder="Подтвердите пароль" />
+                <span asp-validation-for="ConfimPassword" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Почта</label>
+                <input type="email" class="form-control" name="Email" placeholder="Введите почту" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Телефон</label>
+                <input type="text" class="form-control" name="PhoneNumber" placeholder="Введите телефон" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <span class="text-info">*Введите телефон по желанию</span>
+            </div>
+
+
+
+            <div class="d-flex">
+
+                <div class="flex-column me-3">
+                    <button type="submit" class="btn btn-primary">Регистрация</button>
+                </div>
+
+                <div class="flex-column ms-3">
+                    <label class="form-label">Уже есть акаунт?</label> <br />
+                    <a asp-area="" asp-controller="User" asp-action="Login">Вход</a>
+                </div>
+
+            </div>
+
+        </div>
+        
+
+    </form>
+
+</div>

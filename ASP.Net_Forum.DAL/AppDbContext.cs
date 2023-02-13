@@ -12,7 +12,7 @@ namespace ASP.Net_Forum.DAL
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
-        { 
+        {
             Database.EnsureCreated();
         }
 
