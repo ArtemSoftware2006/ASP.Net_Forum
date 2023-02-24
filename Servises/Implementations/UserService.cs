@@ -49,7 +49,7 @@ namespace Service.Implementations
                 };
             }
         }
-        public async Task<BaseResponse<User>> Get(int id)
+        public async Task<BaseResponse<User>> Get(string id)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace Service.Implementations
                 };
             }
         }
-        public async Task<BaseResponse<bool>> Delete(int id)
+        public async Task<BaseResponse<bool>> Delete(string id)
         {
             var baseResponse = new BaseResponse<bool>();
             try
@@ -169,7 +169,7 @@ namespace Service.Implementations
                 };
             }
         }
-        public async Task<BaseResponse<bool>> Edit(int id, UserViewModel model)
+        public async Task<BaseResponse<bool>> Edit(string id, UserViewModel model)
         {
             var baseResponse = new BaseResponse<bool>();
             try
@@ -182,7 +182,7 @@ namespace Service.Implementations
                 }
                 else
                 {
-                    user.Login = model.Login;
+                    user.UserName = model.UserName;
                     user.Password = model.Password;
                     user.Age = model.Age;
                     user.Email = model.Email;
@@ -289,7 +289,7 @@ namespace Service.Implementations
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
             };
 

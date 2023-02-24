@@ -1,4 +1,6 @@
 ﻿using ASP.Net_Forum.Domain.Entity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,12 +10,16 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.DAL
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseMySql(new MySqlServerVersion(new Version(8, 0, 31)));
         }
 
         public DbSet<User> User { get; set; }

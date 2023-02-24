@@ -3,6 +3,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Привет, Мир!</h1>
-    <p>Здесь будет форум от Тёмы</a>.</p>
+    @if(User.Identity.IsAuthenticated)
+    {
+        <h1> Привет, @User.Identity.Name !</h1>
+        <p>Пока статей нет...</p>
+    }
+    else
+    {
+        <h1 class="display-4">Привет, Мир!</h1>
+        <p>Здесь будет форум от Тёмы</p>
+    }
 </div>

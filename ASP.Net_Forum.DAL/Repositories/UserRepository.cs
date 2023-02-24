@@ -34,14 +34,14 @@ namespace ASP.Net_Forum.DAL.Repositories
             return true;
         }
 
-        public async Task<User> Get(int id)
+        public async Task<User> Get(string id)
         {
             return await DbContext.User.FirstOrDefaultAsync(x => x.Id == id); 
         }
 
         public async Task<User> GetByLogin(string login)
         {
-            return await DbContext.User.FirstOrDefaultAsync(x => x.Login == login);
+            return await DbContext.User.FirstOrDefaultAsync(x => x.UserName == login);
         }
 
         public async Task<User> Update(User entity)

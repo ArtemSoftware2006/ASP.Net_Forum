@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
  
 var conf_builder = new ConfigurationBuilder();
+
 conf_builder.SetBasePath(Directory.GetCurrentDirectory());
 conf_builder.AddJsonFile("appsettings.json");
 var config = conf_builder.Build();
@@ -20,6 +21,7 @@ var config = conf_builder.Build();
 var connection = config.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 31))));
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

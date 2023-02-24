@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ASP.Net_Forum.DAL\ASP.Net_Forum.DAL.csproj" />
     <ProjectReference Include="..\ASP.Net_Forum.Domain\ASP.Net_Forum.Domain.csproj" />
   </ItemGroup>
