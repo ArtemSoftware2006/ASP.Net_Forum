@@ -1,9 +1,12 @@
 using ASP.Net_Forum.DAL;
 using ASP.Net_Forum.DAL.Interfaces;
 using ASP.Net_Forum.DAL.Repositories;
+using ASP.Net_Forum.Domain.Entity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Registr_Identity.Models;
 using Service.Implementations;
 using Service.Interfaces;
 using System.Configuration;
@@ -21,7 +24,8 @@ var config = conf_builder.Build();
 var connection = config.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 31))));
-
+builder.Services.AddIdentity<User, AppRoles>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -34,7 +38,6 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService,UserService>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -42,6 +45,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

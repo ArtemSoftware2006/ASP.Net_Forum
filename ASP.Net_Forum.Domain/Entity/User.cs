@@ -12,14 +12,14 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ASP.Net_Forum.Domain.Entity
 {
-    [Table("Users")]
-    public class User : IdentityUser
+    public class User : IdentityUser<int>
     {
         public int Age { get; set; }
-        public string Password { get; set; }
         public Role Role{ get; set; }
 
         [Column("Card_number")]
         public string? CardNumber { get; set; }
     }
+
+
 }

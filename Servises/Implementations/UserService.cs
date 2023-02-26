@@ -49,7 +49,7 @@ namespace Service.Implementations
                 };
             }
         }
-        public async Task<BaseResponse<User>> Get(string id)
+        public async Task<BaseResponse<User>> Get(int id)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace Service.Implementations
                 };
             }
         }
-        public async Task<BaseResponse<bool>> Delete(string id)
+        public async Task<BaseResponse<bool>> Delete(int id)
         {
             var baseResponse = new BaseResponse<bool>();
             try
@@ -148,8 +148,8 @@ namespace Service.Implementations
                     Email = userViewModel.Email,
                     CardNumber = userViewModel.CardNumber,
                     PhoneNumber = userViewModel.PhoneNumber,
-                    Login = userViewModel.Login,
-                    Password = userViewModel.Password,
+                    UserName = userViewModel.UserName,
+                    PasswordHash = userViewModel.Password,
                 };
 
                 await _userRepository.Create(user);
@@ -169,7 +169,7 @@ namespace Service.Implementations
                 };
             }
         }
-        public async Task<BaseResponse<bool>> Edit(string id, UserViewModel model)
+        public async Task<BaseResponse<bool>> Edit(int id, UserViewModel model)
         {
             var baseResponse = new BaseResponse<bool>();
             try
@@ -183,7 +183,7 @@ namespace Service.Implementations
                 else
                 {
                     user.UserName = model.UserName;
-                    user.Password = model.Password;
+                    user.PasswordHash = model.Password;
                     user.Age = model.Age;
                     user.Email = model.Email;
                     user.CardNumber = model.CardNumber;
@@ -208,7 +208,7 @@ namespace Service.Implementations
         {
             try
             {
-                var user = _userRepository.GetAll().FirstOrDefault(x => x.Login == model.Login);
+                var user = _userRepository.GetAll().FirstOrDefault(x => x.UserName == model.Login);
 
                 if(user != null)
                 {
@@ -222,8 +222,8 @@ namespace Service.Implementations
                 {
                     user = new User()
                     {
-                        Login = model.Login,
-                        Password = HashPasswordHelper.HashPassword(model.Password),
+                        UserName = model.Login,
+                        PasswordHash = HashPasswordHelper.HashPassword(model.Password),
                         Age = model.Age,
                         Email = model.Email,
                         PhoneNumber = model.PhoneNumber,
@@ -257,7 +257,7 @@ namespace Service.Implementations
         {
             try
             {
-                var user = _userRepository.GetAll().FirstOrDefault(x => x.Login == model.Login && x.Password == HashPasswordHelper.HashPassword(model.Password));
+                var user = _userRepository.GetAll().FirstOrDefault(x => x.UserName == model.Login && x.PasswordHash == HashPasswordHelper.HashPassword(model.Password));
                 if (user != null)
                 {
                     var result = Authenticate(user);

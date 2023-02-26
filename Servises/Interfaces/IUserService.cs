@@ -12,11 +12,11 @@ namespace Service.Interfaces
 {
     public interface IUserService
     {
-        Task<BaseResponse<bool>> Edit(string id, UserViewModel model);
+        Task<BaseResponse<bool>> Edit(int id, UserViewModel model);
         Task<BaseResponse<IEnumerable<User>>> GetAll();
-        Task<BaseResponse<User>> Get(string id);
+        Task<BaseResponse<User>> Get(int id);
         Task<BaseResponse<User>> GetByLogin(string login);
-        Task<BaseResponse<bool>> Delete(string id);
+        Task<BaseResponse<bool>> Delete(int id);
         Task<BaseResponse<bool>> Create(UserViewModel userViewModel);
         Task<BaseResponse<ClaimsIdentity>> Registr(RegistrViewModel model);
         Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model);

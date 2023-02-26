@@ -9,7 +9,7 @@ namespace ASP.Net_Forum.DAL.Interfaces
     public interface IBaseRepository<T>
     {
         Task<bool> Create(T entity);
-        Task<T> Get(string id);
+        Task<T> Get(int id);
         IQueryable<T> GetAll();
 
         Task<bool> Delete(T entity);

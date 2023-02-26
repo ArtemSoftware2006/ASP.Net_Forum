@@ -95,7 +95,7 @@ namespace ASP.Net_Forum.Controllers.User
 
 
 		[HttpGet]
-        public async Task<IActionResult> GetUser(string id)
+        public async Task<IActionResult> GetUser(int id)
         {
             var response = await _userService.Get(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
@@ -108,7 +108,7 @@ namespace ASP.Net_Forum.Controllers.User
 
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
             var response = await _userService.Delete(id);
             if (response.StatusCode == Domain.Enum.StatusCode.OK)
@@ -123,9 +123,9 @@ namespace ASP.Net_Forum.Controllers.User
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Save(string id)
+        public async Task<IActionResult> Save(int id)
         {
-            if (id == "0")
+            if (id == 0)
             {
                 return View();
             }
@@ -149,7 +149,7 @@ namespace ASP.Net_Forum.Controllers.User
             if (ModelState.IsValid)
             {
                 BaseResponse<bool> response = new BaseResponse<bool>();
-                if (model.Id == "0")
+                if (model.Id == 0)
                 {
                     response = await _userService.Create(model);
                 }

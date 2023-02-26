@@ -34,19 +34,19 @@ namespace ASP.Net_Forum.DAL.Repositories
             return true;
         }
 
-        public async Task<User> Get(string id)
+        public async Task<User> Get(int id)
         {
-            return await DbContext.User.FirstOrDefaultAsync(x => x.Id == id); 
+            return await DbContext.Users.FirstOrDefaultAsync(x => x.Id == id); 
         }
 
         public async Task<User> GetByLogin(string login)
         {
-            return await DbContext.User.FirstOrDefaultAsync(x => x.UserName == login);
+            return await DbContext.Users.FirstOrDefaultAsync(x => x.UserName == login);
         }
 
         public async Task<User> Update(User entity)
         {
-             DbContext.User.Update(entity);
+             DbContext.Users.Update(entity);
              await DbContext.SaveChangesAsync();
 
              return entity;
@@ -54,7 +54,7 @@ namespace ASP.Net_Forum.DAL.Repositories
 
         public IQueryable<User> GetAll()
         {
-            return DbContext.User;
+            return DbContext.Users;
         }
     }
 }
