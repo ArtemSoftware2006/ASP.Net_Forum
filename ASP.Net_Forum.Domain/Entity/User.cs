@@ -12,13 +12,16 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ASP.Net_Forum.Domain.Entity
 {
-    public class User : IdentityUser<int>
+    [Table("Users")]
+    public class User
     {
+        [Key]
+        public int Id { get; set; }
+        public string Login { get; set; }
+        public string PasswordHash { get; set; }
         public int Age { get; set; }
         public Role Role{ get; set; }
-
-        [Column("Card_number")]
-        public string? CardNumber { get; set; }
+        public string Email { get; set; }
     }
 
 

@@ -7,15 +7,16 @@ using Microsoft.AspNetCore.Authorization;
 using ASP.Net_Forum.Domain.Response;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace ASP.Net_Forum.Controllers.User
 {
     public class UserController : Controller
     {
-        private readonly IUserService _userService;
 
+        private readonly IUserService _userService;
         public UserController(IUserService userService)
         {
             _userService = userService;
@@ -47,13 +48,14 @@ namespace ASP.Net_Forum.Controllers.User
 
                 if(response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(response.Data));
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(response.Data));
 
                     return Redirect("~/Home/Index");
                 }
-
-                ModelState.AddModelError("", response.Description);
+                else
+                {
+                    ModelState.AddModelError("", response.Description);
+                }
             }
             return View(model);
         }
@@ -83,11 +85,12 @@ namespace ASP.Net_Forum.Controllers.User
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(response.Data));
-
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(response.Data));
                 }
-                ModelState.AddModelError("", response.Description);
+                else
+                {
+                    ModelState.AddModelError("", response.Description);
+                }
             }
 			return Redirect("~/Home/Index");
 		}

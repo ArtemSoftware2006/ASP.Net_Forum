@@ -24,14 +24,11 @@ var config = conf_builder.Build();
 var connection = config.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 31))));
-builder.Services.AddIdentity<User, AppRoles>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
-        options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
+        options.LoginPath = "/Home/Index";
     });
 
 builder.Services.AddControllersWithViews();
@@ -51,8 +48,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

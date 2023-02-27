@@ -8,6 +8,7 @@ using Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Security;
 using System.Security.Claims;
 using System.Text;
@@ -112,6 +113,7 @@ namespace Service.Implementations
             {
                 var user = await _userRepository.Get(id);
 
+
                 if (user == null)
                 {
                     baseResponse.StatusCode = StatusCode.NotFound;
@@ -146,9 +148,7 @@ namespace Service.Implementations
                 {
                     Age = userViewModel.Age,
                     Email = userViewModel.Email,
-                    CardNumber = userViewModel.CardNumber,
-                    PhoneNumber = userViewModel.PhoneNumber,
-                    UserName = userViewModel.UserName,
+                    Login = userViewModel.UserName,
                     PasswordHash = userViewModel.Password,
                 };
 
@@ -182,12 +182,10 @@ namespace Service.Implementations
                 }
                 else
                 {
-                    user.UserName = model.UserName;
+                    user.Login = model.UserName;
                     user.PasswordHash = model.Password;
                     user.Age = model.Age;
                     user.Email = model.Email;
-                    user.CardNumber = model.CardNumber;
-                    user.PhoneNumber = model.PhoneNumber;
 
                     await _userRepository.Update(user);
                 }
@@ -208,7 +206,7 @@ namespace Service.Implementations
         {
             try
             {
-                var user = _userRepository.GetAll().FirstOrDefault(x => x.UserName == model.Login);
+                var user = _userRepository.GetAll().FirstOrDefault(x => x.Login == model.Login);
 
                 if(user != null)
                 {
@@ -222,11 +220,9 @@ namespace Service.Implementations
                 {
                     user = new User()
                     {
-                        UserName = model.Login,
+                        Login = model.Login,
                         PasswordHash = HashPasswordHelper.HashPassword(model.Password),
-                        Age = model.Age,
                         Email = model.Email,
-                        PhoneNumber = model.PhoneNumber,
 
                         Role = Role.User,
                     };
@@ -257,7 +253,7 @@ namespace Service.Implementations
         {
             try
             {
-                var user = _userRepository.GetAll().FirstOrDefault(x => x.UserName == model.Login && x.PasswordHash == HashPasswordHelper.HashPassword(model.Password));
+                var user = _userRepository.GetAll().FirstOrDefault(x => x.Login == model.Login && x.PasswordHash == HashPasswordHelper.HashPassword(model.Password));
                 if (user != null)
                 {
                     var result = Authenticate(user);
@@ -289,8 +285,8 @@ namespace Service.Implementations
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
+                new Claim(ClaimTypes.Name, user.Login),
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 
             return new ClaimsIdentity(claims, "ApplicationCookie",

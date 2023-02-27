@@ -41,7 +41,7 @@ namespace ASP.Net_Forum.DAL.Repositories
 
         public async Task<User> GetByLogin(string login)
         {
-            return await DbContext.Users.FirstOrDefaultAsync(x => x.UserName == login);
+            return await DbContext.Users.FirstOrDefaultAsync(x => x.Login == login);
         }
 
         public async Task<User> Update(User entity)

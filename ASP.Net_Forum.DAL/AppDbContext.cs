@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.DAL
 {
-    public class AppDbContext : IdentityDbContext<User,AppRoles,int>
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
@@ -22,5 +22,7 @@ namespace ASP.Net_Forum.DAL
         {
            
         }
+
+        public DbSet<User> Users { get; set; }
     }
 }
