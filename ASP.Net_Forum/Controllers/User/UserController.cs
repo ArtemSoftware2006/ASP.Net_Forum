@@ -23,20 +23,6 @@ namespace ASP.Net_Forum.Controllers.User
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers()
-        {
-            var response = await _userService.GetAll();
-
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-
-            return RedirectToAction("Error");
-        }
-
-
-        [HttpGet]
         public async Task<IActionResult> Registr() => View();
 
         [HttpPost]
@@ -46,7 +32,7 @@ namespace ASP.Net_Forum.Controllers.User
             {
                 var response = await _userService.Registr(model);
 
-                if(response.StatusCode == Domain.Enum.StatusCode.OK)
+                if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(response.Data));
 
@@ -58,19 +44,6 @@ namespace ASP.Net_Forum.Controllers.User
                 }
             }
             return View(model);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Profil()
-        {
-            var result = await _userService.GetByLogin(User.Identity.Name);
-
-            if (result.StatusCode == Domain.Enum.StatusCode.OK)
-            {
-                return View(result.Data);
-            }
-
-            return RedirectToAction("Error");
         }
 
         [HttpGet]
@@ -95,9 +68,27 @@ namespace ASP.Net_Forum.Controllers.User
 			return Redirect("~/Home/Index");
 		}
 
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Redirect("~/Home/Index");
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> Profil()
+        {
+            var result = await _userService.GetByLogin(User.Identity.Name);
 
-		[HttpGet]
+            if (result.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(result.Data);
+            }
+
+            return RedirectToAction("Error");
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetUser(int id)
         {
             var response = await _userService.Get(id);
@@ -108,7 +99,18 @@ namespace ASP.Net_Forum.Controllers.User
             return RedirectToAction("Error");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var response = await _userService.GetAll();
 
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                return View(response.Data);
+            }
+
+            return RedirectToAction("Error");
+        }
 
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int id)
@@ -171,13 +173,6 @@ namespace ASP.Net_Forum.Controllers.User
                 }
             }
             return RedirectToAction("Error");
-        }
-
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Redirect("~/Home/Index");
         }
     }
 }
