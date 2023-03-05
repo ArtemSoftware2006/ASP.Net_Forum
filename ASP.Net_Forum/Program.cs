@@ -34,6 +34,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<INoteRepository, NoteRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -228,9 +228,9 @@ namespace Service.Implementations
                     };
 
 
+                    _userRepository.Create(user);
                     var result = Authenticate(user);
 
-                    _userRepository.Create(user);
 
                     return new BaseResponse<ClaimsIdentity>
                     {

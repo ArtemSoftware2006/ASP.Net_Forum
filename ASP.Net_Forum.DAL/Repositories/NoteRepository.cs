@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.DAL.Repositories
 {
-	public class NoteRepository : IBaseRepository<Note>
+	public class NoteRepository : INoteRepository
 	{
 		public AppDbContext DbContext { get; set; }
 		public NoteRepository(AppDbContext dbContext)
@@ -47,5 +47,11 @@ namespace ASP.Net_Forum.DAL.Repositories
 		{
 			return DbContext.Notes;
 		}
+
+		public Task<bool> Create(Migrations.Note entity)
+		{
+			throw new NotImplementedException();
+		}
+
 	}
 }

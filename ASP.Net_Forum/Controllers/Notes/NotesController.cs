@@ -8,7 +8,6 @@ namespace ASP.Net_Forum.Controllers.Notes
         public async Task<IActionResult> ShowAll()
         {
 
-
             return View();
         }
     }
