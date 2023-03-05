@@ -23,5 +23,6 @@ namespace ASP.Net_Forum.DAL
 		}
 
 		public DbSet<User> Users { get; set; }
+        public DbSet<Note> Notes { get; set; }
     }
 }

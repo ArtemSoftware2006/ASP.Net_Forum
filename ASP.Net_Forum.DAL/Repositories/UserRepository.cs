@@ -21,7 +21,7 @@ namespace ASP.Net_Forum.DAL.Repositories
         public async Task<bool> Create(User entity)
         {
             DbContext.Add(entity);
-            DbContext.SaveChanges();
+            await DbContext.SaveChangesAsync();
 
             return true;
         }
