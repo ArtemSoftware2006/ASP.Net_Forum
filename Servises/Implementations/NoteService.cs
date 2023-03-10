@@ -22,7 +22,7 @@ namespace ASP.Net_Forum.Service.Implementations
 			_noteRepository = noteRepository ?? throw new ArgumentNullException(nameof(noteRepository));
 		}
 
-		public async Task<BaseResponse<bool>> Create(NoteViewModel noteViewModel, string login)
+		public async Task<BaseResponse<bool>> Create(NoteViewModel noteViewModel)
 		{
 			var response = new BaseResponse<bool>();
 
@@ -34,8 +34,8 @@ namespace ASP.Net_Forum.Service.Implementations
 					Title = noteViewModel.Title,
 					ShortDiscription = noteViewModel.ShortDiscription,
 					DateCreated = DateTime.UtcNow,
-				
-					// Разобраться как привязать пользователя
+					UserId = noteViewModel.UserId,
+					
 				};
 
 				await _noteRepository.Create(note);

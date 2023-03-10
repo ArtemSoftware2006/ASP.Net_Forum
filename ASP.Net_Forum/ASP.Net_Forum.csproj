@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ASP.Net_Forum.DAL\ASP.Net_Forum.DAL.csproj" />
-    <ProjectReference Include="..\Servises\ASP.Net_Forum.Service.csproj" />
+    <ProjectReference Include="..\ASP.Net_Forum.DAL\DAL.csproj" />
+    <ProjectReference Include="..\Servises\Service.csproj" />
   </ItemGroup>
 
 </Project>

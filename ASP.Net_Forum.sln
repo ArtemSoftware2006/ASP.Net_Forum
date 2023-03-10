@@ -5,11 +5,11 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.Net_Forum", "ASP.Net_Forum\ASP.Net_Forum.csproj", "{5EE3A511-1C6D-4378-B4D3-CB95B10016DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.Net_Forum.Domain", "ASP.Net_Forum.Domain\ASP.Net_Forum.Domain.csproj", "{FAF71245-3A28-4CB7-9051-FB04F3E077A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "ASP.Net_Forum.Domain\Domain.csproj", "{FAF71245-3A28-4CB7-9051-FB04F3E077A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.Net_Forum.DAL", "ASP.Net_Forum.DAL\ASP.Net_Forum.DAL.csproj", "{6E96E720-7967-4114-A505-1A13BB71E760}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "ASP.Net_Forum.DAL\DAL.csproj", "{6E96E720-7967-4114-A505-1A13BB71E760}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.Net_Forum.Service", "Servises\ASP.Net_Forum.Service.csproj", "{FB294A05-1097-4CE2-AE1E-EDABAD3DA277}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Servises\Service.csproj", "{FB294A05-1097-4CE2-AE1E-EDABAD3DA277}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
