@@ -17,12 +17,5 @@ namespace ASP.Net_Forum.Controllers.Notes
         {
             return View();
         }
-        [HttpPost]
-        public async Task<IActionResult> ShowAll()
-        {
-
-
-            return View();
-        }
     }
 }
