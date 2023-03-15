@@ -1,24 +1,14 @@
-﻿
+﻿@using ASP.Net_Forum.Domain.ViewModels.Note;
+
+@model List<NoteViewModel>
 
 <div class="container overflow-hidden">
 
 		<div class="row row-cols-2 g-2">
 
-			<div class="col">
-				<div class="border border-3 p-4">статья</div> 
-			</div>
-
-			<div class="col">
-				<div class="border border-3 p-4">статья</div>
-			</div>
-
-			<div class="col">
-				<div class="border border-3 p-4">статья</div>
-			</div>
-
-			<div class="col">
-				<div class="border border-3 p-4">статья</div>
-			</div>
+			@foreach (var item in Model)
+			{
+			}
 
 		</div>
 </div>

@@ -8,7 +8,8 @@ namespace ASP.Net_Forum.Domain.ViewModels.Note
 {
 	public class NoteViewModel
 	{
-		public string Title { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
 		public string Body { get; set; }
 		public string ShortDiscription { get; set; }
 		public int UserId { get; set; }

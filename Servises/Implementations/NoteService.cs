@@ -55,8 +55,42 @@ namespace ASP.Net_Forum.Service.Implementations
 				};
 			}		
 		}
+        public async Task<BaseResponse<IEnumerable<Note>>> GetAll()
+        {
+            var response = new BaseResponse<IEnumerable<Note>>();
 
-		public Task<BaseResponse<bool>> Delete(int id)
+            try
+            {
+				var notes = _noteRepository.GetAll();
+				if (notes.Count() == 0)
+				{
+					return new BaseResponse<IEnumerable<Note>>
+					{
+						Description = "Публикаций не найдено.",
+						StatusCode = StatusCode.NotFound,
+					};
+				}
+				return new BaseResponse<IEnumerable<Note>>
+				{
+					Data = notes,
+					Description = "OK",
+					StatusCode = StatusCode.OK,
+				};
+				return response;
+            }
+			catch (Exception ex)
+			{
+				return new BaseResponse<IEnumerable<Note>>
+				{
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"[Create(User)] : {ex.Message})"
+                };
+            }
+
+        }
+
+
+        public Task<BaseResponse<bool>> Delete(int id)
 		{
 			throw new NotImplementedException();
 		}
@@ -67,11 +101,6 @@ namespace ASP.Net_Forum.Service.Implementations
 		}
 
 		public Task<BaseResponse<Note>> Get(int id)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task<BaseResponse<IEnumerable<Note>>> GetAll()
 		{
 			throw new NotImplementedException();
 		}

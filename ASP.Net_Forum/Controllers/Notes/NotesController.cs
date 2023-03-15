@@ -1,5 +1,7 @@
-﻿using ASP.Net_Forum.Service.Interfaces;
+﻿using ASP.Net_Forum.Domain.ViewModels.Note;
+using ASP.Net_Forum.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using ASP.Net_Forum.Domain.Enum;
 
 namespace ASP.Net_Forum.Controllers.Notes
 {
@@ -15,14 +17,12 @@ namespace ASP.Net_Forum.Controllers.Notes
         [HttpGet]
         public async Task<IActionResult> ShowAll()
         {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> ShowAll()
-        {
-
-
-            return View();
+            var response = await _noteService.GetAll();
+            if (response.StatusCode != Domain.Enum.StatusCode.InternalServerError)
+            {
+                return View(response);
+            }
+            return RedirectToAction("Error");
         }
     }
 }
