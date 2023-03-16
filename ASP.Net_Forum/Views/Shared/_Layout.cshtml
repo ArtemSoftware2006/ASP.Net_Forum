@@ -73,9 +73,18 @@
     </header>
 
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+        <div class="row">
+
+            <div class="col-2"></div>
+
+            <main role="main" class="pb-3 col-8">
+                @RenderBody()
+            </main>
+
+            <div class="col-2"></div>
+        </div>
+
     </div>
 
     <footer class="border-top footer text-muted">
