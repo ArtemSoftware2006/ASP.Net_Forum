@@ -2,6 +2,7 @@
 using ASP.Net_Forum.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ASP.Net_Forum.Domain.Enum;
+using ASP.Net_Forum.Domain.Entity;
 
 namespace ASP.Net_Forum.Controllers.Notes
 {
@@ -18,11 +19,23 @@ namespace ASP.Net_Forum.Controllers.Notes
         public async Task<IActionResult> ShowAll()
         {
             var response = await _noteService.GetAll();
-            if (response.StatusCode != Domain.Enum.StatusCode.InternalServerError)
+            if (response.StatusCode == Domain.Enum.StatusCode.OK)
             {
-                return View(response);
+                return View(response.Data.ToList());
+            }
+            else if (response.StatusCode == Domain.Enum.StatusCode.NotFound)
+            {
+                return View(new List<NoteViewModel>());
             }
             return RedirectToAction("Error");
         }
-    }
+        [HttpGet]
+        public async Task<IActionResult> CreateNote() => View();
+  //      [HttpPost]
+		//public async Task<IActionResult> CreateNote()
+  //      {
+            
+  //      }
+
+	}
 }

@@ -2,13 +2,15 @@ using ASP.Net_Forum.DAL;
 using ASP.Net_Forum.DAL.Interfaces;
 using ASP.Net_Forum.DAL.Repositories;
 using ASP.Net_Forum.Domain.Entity;
+using ASP.Net_Forum.Service.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Service.Implementations;
+using ASP.Net_Forum.Service.Implementations;
 using Service.Interfaces;
 using System.Configuration;
+using Service.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
+builder.Services.AddScoped<INoteService, ASP.Net_Forum.Service.Implementations.NoteService>();
 
 var app = builder.Build();
 

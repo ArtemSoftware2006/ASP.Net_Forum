@@ -4,11 +4,28 @@
 
 <div class="container overflow-hidden">
 
-		<div class="row row-cols-2 g-2">
-
-			@foreach (var item in Model)
-			{
-			}
-
+	@if (Model.Count == 0)
+	{
+		<div class="text-center h1 m-2 p-2">
+			Пока нет статей!
 		</div>
+	<div class="text-center h1 m-2 p-2">
+		Пока нет статей!
+	</div>
+	}
+	else
+	{
+		@foreach (var item in Model)
+		{
+			<div class="row row-cols-2 g-2">	
+				<div class="col m-2 p-2">
+
+					<h4 class="m-2">@item.Title</h4>
+					<div>@item.ShortDiscription</div>
+
+				</div>
+			</div>
+		}
+	}
+
 </div>

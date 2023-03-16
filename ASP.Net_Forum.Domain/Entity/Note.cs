@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.Domain.Entity
 {
+	[Table("Notes")]
 	public class Note
 	{
 		[Key]
