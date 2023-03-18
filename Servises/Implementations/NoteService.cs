@@ -22,7 +22,7 @@ namespace ASP.Net_Forum.Service.Implementations
 			_noteRepository = noteRepository ?? throw new ArgumentNullException(nameof(noteRepository));
 		}
 
-		public async Task<BaseResponse<bool>> Create(NoteViewModel noteViewModel)
+		public async Task<BaseResponse<bool>> Create(NoteCreateViewModel noteViewModel)
 		{
 			var response = new BaseResponse<bool>();
 

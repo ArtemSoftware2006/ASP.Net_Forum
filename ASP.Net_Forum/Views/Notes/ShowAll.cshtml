@@ -1,33 +1,34 @@
-﻿@using ASP.Net_Forum.Domain.ViewModels.Note;
+﻿@using ASP.Net_Forum.Domain.Entity;
 
-@model List<NoteViewModel>
+@model List<Note>
 
-<div class="container overflow-hidden">
 
-	@if (Model.Count == 0)
-	{
-		<div class="text-center h1 m-2 p-2">
-			Пока нет статей!
-		</div>
+@if (Model.Count == 0)
+{
+	<div class="text-center h1 m-2 p-2">
+		Пока нет статей!
+	</div>
+
 	<div class="text-center h4 m-2 p-2">
 		Но скоро будут...
 	</div>
-	}
-	else
-	{
+}
+else
+{
+	<div class="row row-cols-2 justify-content-around">
+
 		@foreach (var item in Model)
 		{
-			<div class="row row-cols-2 g-2">	
+			<div class="col-5 border rounded-2 m-1 p-1">
 
-				<div class="col m-2 p-2">
-
-					<h4 class="m-2">@item.Title</h4>
-					<div>@item.ShortDiscription</div>
-
-				</div>
+				<h4 class="m-2 p-2">@item.Title</h4>
+				<p>@item.ShortDiscription</p>
 
 			</div>
 		}
-	}
 
-</div>
+	</div>
+	
+}
+	
+
