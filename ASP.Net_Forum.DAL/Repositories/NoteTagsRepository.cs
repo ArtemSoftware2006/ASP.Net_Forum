@@ -9,45 +9,43 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.DAL.Repositories
 {
-	public class TagRepository : ITagRepository
+	public class NoteTagsRepository : INoteTagsRepository
 	{
 		public AppDbContext _dbContext { get; set; }
 
-		public TagRepository(AppDbContext dbContext)
+		public NoteTagsRepository(AppDbContext dbContext)
 		{
 			_dbContext = dbContext;
 		}
-
-		public async Task<bool> Create(Tag entity)
+		public async Task<bool> Create(NoteTags entity)
 		{
-			_dbContext.Tags.Add(entity);
+			_dbContext.Add(entity);
 			await _dbContext.SaveChangesAsync();
 			return true;
 		}
 
-		public async Task<bool> Delete(Tag entity)
+		public async Task<bool> Delete(NoteTags entity)
 		{
-			_dbContext.Tags.Remove(entity);
+			_dbContext.Remove(entity);
 			await _dbContext.SaveChangesAsync();
 
 			return true;
 		}
 
-		public async Task<Tag> Get(int id)
+		public async Task<NoteTags> Get(int id)
 		{
-			return  await _dbContext.Tags.FirstOrDefaultAsync(x => x.Id == id);
+			return await _dbContext.NoteTags.FirstOrDefaultAsync(x => x.Id == id);
 		}
 
-		public IQueryable<Tag> GetAll()
+		public IQueryable<NoteTags> GetAll()
 		{
-			return _dbContext.Tags;
+			return _dbContext.NoteTags;
 		}
 
-		public async Task<Tag> Update(Tag entity)
+		public async Task<NoteTags> Update(NoteTags entity)
 		{
-			_dbContext.Tags.Update(entity);
+			_dbContext.Update(entity);
 			await _dbContext.SaveChangesAsync();
-
 			return entity;
 		}
 	}

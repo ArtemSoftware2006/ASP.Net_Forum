@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.DAL.Interfaces
 {
-	public interface ITagRepository : IBaseRepository<Tag>
+	public interface INoteTagsRepository : IBaseRepository<NoteTags>
 	{
 	}
 }
