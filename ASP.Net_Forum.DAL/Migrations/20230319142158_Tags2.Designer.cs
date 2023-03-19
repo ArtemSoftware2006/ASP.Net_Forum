@@ -3,6 +3,7 @@ using System;
 using ASP.Net_Forum.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASP.Net_Forum.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230319142158_Tags2")]
+    partial class Tags2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,6 +65,9 @@ namespace ASP.Net_Forum.DAL.Migrations
                     b.Property<int>("TagId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TargetId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NoteId");
@@ -81,7 +87,12 @@ namespace ASP.Net_Forum.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("NoteId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("NoteId");
 
                     b.ToTable("Tags");
                 });
@@ -146,6 +157,17 @@ namespace ASP.Net_Forum.DAL.Migrations
                     b.Navigation("Note");
 
                     b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("ASP.Net_Forum.Domain.Entity.Tag", b =>
+                {
+                    b.HasOne("ASP.Net_Forum.Domain.Entity.Note", "Note")
+                        .WithMany()
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Note");
                 });
 
             modelBuilder.Entity("ASP.Net_Forum.Domain.Entity.User", b =>
