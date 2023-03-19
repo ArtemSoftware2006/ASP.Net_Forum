@@ -23,7 +23,7 @@ namespace ASP.Net_Forum.Domain.Entity
         public Role Role{ get; set; }
         public string Email { get; set; }
         public bool ConfirmEmail { get; set; }
-        public List<Note> Notes { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
     }
 
 

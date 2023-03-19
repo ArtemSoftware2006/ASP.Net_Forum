@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 using ASP.Net_Forum.DAL.Interfaces;
 using Service.Interfaces;
 using Service.Implementations;
+using ASP.Net_Forum.DAL.Migrations;
 
 namespace ASP.Net_Forum.Controllers.Notes
 {
-    [Authorize]
     public class NotesController : Controller
     {
         private readonly INoteService _noteService;
@@ -35,10 +35,31 @@ namespace ASP.Net_Forum.Controllers.Notes
             }
             return RedirectToAction("Error");
         }
-        [HttpGet]
-        public async Task<IActionResult> Create() => View();
         [HttpPost]
-        public async Task<IActionResult> Create(NoteCreateViewModel noteModel)
+		public async Task<IActionResult> Show(int noteId)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _noteService.Get(noteId);
+
+				if (response.StatusCode == Domain.Enum.StatusCode.OK)
+				{
+					return View(response.Data);
+				}
+				else
+				{
+					ModelState.AddModelError("", response.Description);
+				}
+			}
+			return View();
+		}
+
+		[HttpGet]
+		[Authorize]
+		public async Task<IActionResult> Create() => View();
+        [HttpPost]
+		[Authorize]
+		public async Task<IActionResult> Create(NoteCreateViewModel noteModel)
         {
             if (ModelState.IsValid)
             {
@@ -46,7 +67,7 @@ namespace ASP.Net_Forum.Controllers.Notes
 
                 noteModel.UserId = userId.Data.Id;
 
-                 var response = await _noteService.Create(noteModel);
+                var response = await _noteService.Create(noteModel);
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)
                 {

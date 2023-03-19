@@ -55,32 +55,37 @@ namespace ASP.Net_Forum.Service.Implementations
 				};
 			}		
 		}
-        public async Task<BaseResponse<IEnumerable<Note>>> GetAll()
+        public async Task<BaseResponse<IEnumerable<NoteViewModel>>> GetAll()
         {
-            var response = new BaseResponse<IEnumerable<Note>>();
-
             try
             {
-				var notes = _noteRepository.GetAll();
+				var notes = _noteRepository.GetAll()
+					.Select(x => new NoteViewModel()
+					{
+						Title = x.Title,
+						DateCreated = x.DateCreated,
+						ShortDiscription = x.ShortDiscription,
+						UserId = x.UserId,
+						Id = x.Id
+					}) ;
 				if (notes.Count() == 0)
 				{
-					return new BaseResponse<IEnumerable<Note>>
+					return new BaseResponse<IEnumerable<NoteViewModel>>
 					{
 						Description = "Публикаций не найдено.",
 						StatusCode = StatusCode.NotFound,
 					};
 				}
-				return new BaseResponse<IEnumerable<Note>>
+				return new BaseResponse<IEnumerable<NoteViewModel>>
 				{
 					Data = notes,
 					Description = "OK",
 					StatusCode = StatusCode.OK,
 				};
-				return response;
             }
 			catch (Exception ex)
 			{
-				return new BaseResponse<IEnumerable<Note>>
+				return new BaseResponse<IEnumerable<NoteViewModel>>
 				{
                     StatusCode = StatusCode.InternalServerError,
                     Description = $"[Create(User)] : {ex.Message})"
@@ -100,9 +105,35 @@ namespace ASP.Net_Forum.Service.Implementations
 			throw new NotImplementedException();
 		}
 
-		public Task<BaseResponse<Note>> Get(int id)
+		public async Task<BaseResponse<Note>> Get(int id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var note = await _noteRepository.Get(id);
+
+				if (note != null)
+				{
+					return new BaseResponse<Note>
+					{
+						Data = note,
+						StatusCode = StatusCode.OK,
+						Description = "OK",
+					};
+				}
+				return new BaseResponse<Note>
+				{
+					StatusCode = StatusCode.InternalServerError,
+					Description = "Нет статьи с таким индексом",
+				};
+			}
+			catch (Exception ex)
+			{
+				return new BaseResponse<Note>
+				{
+					StatusCode = StatusCode.InternalServerError,
+					Description = ex.Message,
+				};
+			}
 		}
 
 		public Task<BaseResponse<Note>> GetByLogin(string login)

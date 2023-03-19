@@ -1,0 +1,20 @@
+﻿@using ASP.Net_Forum.Domain.Entity;
+
+@model Note
+
+
+<div class="row">
+
+	<div class="col-8 mb-3 ms-1 h5">@Model.User.Login</div>
+
+	<h1 class="m-2 p-2 ">@Model.Title</h1>
+
+	<div class="mb-5">@Model.DateCreated</div>
+
+	<div class="m-3 overflow-hidden">
+		<p>@Model.Body</p>
+	</div>
+
+</div>
+
+

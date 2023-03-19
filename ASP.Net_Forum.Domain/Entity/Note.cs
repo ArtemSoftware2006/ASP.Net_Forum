@@ -17,7 +17,8 @@ namespace ASP.Net_Forum.Domain.Entity
 		public string ShortDiscription { get; set; }
 		public string Body { get; set; }
 		public DateTime DateCreated { get; set; }
+		[ForeignKey("Users")]
 		public int UserId { get; set; }
-		public User User { get; set; }
+		public virtual User User { get; set; }
 	}
 }

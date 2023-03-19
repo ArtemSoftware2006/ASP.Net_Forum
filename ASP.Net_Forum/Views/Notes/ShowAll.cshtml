@@ -1,6 +1,6 @@
-﻿@using ASP.Net_Forum.Domain.Entity;
+﻿@using ASP.Net_Forum.Domain.ViewModels.Note;
 
-@model List<Note>
+@model List<NoteViewModel>
 
 
 @if (Model.Count == 0)
@@ -19,16 +19,37 @@ else
 
 		@foreach (var item in Model)
 		{
-			<div class="col-5 border rounded-2 m-1 p-1">
+			<div class="col-5 border rounded-2 m-1 p-2">
+				<form asp-controller="Notes" asp-action="Show" method="post">
 
-				<h4 class="m-2 p-2">@item.Title</h4>
-				<p>@item.ShortDiscription</p>
+					<h4 class="m-2 p-2">@item.Title</h4>
+					<p class="m-2 p-2">@item.ShortDiscription</p>
+					<span class="">@item.DateCreated</span>
+
+					<button class="btn-primary" type="submit" name="noteId" value="@item.Id">Читать</button>
+
+				</form>
 
 			</div>
 		}
 
 	</div>
-	
+}
+@section Scripts
+{
+	@*<script>
+		$(function () {
+			$('.btn-primary').on('click', function(e) {
+					e.preventDefault();
+					var id = $(this).val();
+					console.log(id);
+					 $.ajax({
+						 url: '@Url.Action("Show","Notes")?noteId='+id,
+						 type: 'POST',
+				 });
+			});
+		});
+	</script>*@
 }
 	
 
