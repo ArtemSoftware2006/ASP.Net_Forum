@@ -32,6 +32,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Home/Index";
     });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("admin", policy =>
+    {
+        policy.RequireRole("admin");
+    });
+});
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
