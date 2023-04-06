@@ -2,6 +2,7 @@
 using ASP.Net_Forum.DAL.Migrations;
 using ASP.Net_Forum.Domain.Entity;
 using ASP.Net_Forum.Domain.Response;
+using ASP.Net_Forum.Domain.ViewModels.Tag;
 using ASP.Net_Forum.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -19,13 +20,16 @@ namespace ASP.Net_Forum.Service.Implementations
 		{
 			_tagRepository = tagRepository;
 		}
-		public async Task<BaseResponse<bool>> Create(Tag model)
+		public async Task<BaseResponse<bool>> Create(TagCreateViewModel model)
 		{
 			try
 			{
-				//Приветедение типов модели и Tag
+				var tag = new Tag()
+				{
+					Name = model.Name,
+				};
 
-				await _tagRepository.Create(model);
+				await _tagRepository.Create(tag);
 
 				return new BaseResponse<bool>()
 				{
@@ -85,22 +89,26 @@ namespace ASP.Net_Forum.Service.Implementations
 			}
 		}
 
-		public async Task<BaseResponse<IEnumerable<Tag>>> GetAllTags()
+		public async Task<BaseResponse<IEnumerable<TagCreateViewModel>>> GetAllTags()
 		{
 			try
 			{
-				var tags = _tagRepository.GetAll();
+				var tags = _tagRepository.GetAll()
+					.Select(x => new TagCreateViewModel()
+					{
+						Name = x.Name,
+					});
 
 				if (tags.Count() != 0)
 				{
-					 return new BaseResponse<IEnumerable<Tag>>
+					 return new BaseResponse<IEnumerable<TagCreateViewModel>>
 					 {
 						Data = tags,
 						StatusCode = Domain.Enum.StatusCode.OK,
 						Description = "OK",
 					 };
 				}
-				return new BaseResponse<IEnumerable<Tag>>
+				return new BaseResponse<IEnumerable<TagCreateViewModel>>
 				{
 					Data = tags,
 					StatusCode = Domain.Enum.StatusCode.NotFound,
@@ -109,7 +117,7 @@ namespace ASP.Net_Forum.Service.Implementations
 			}
 			catch (Exception ex)
 			{
-				return new BaseResponse<IEnumerable<Tag>>
+				return new BaseResponse<IEnumerable<TagCreateViewModel>>
 				{
 					StatusCode = Domain.Enum.StatusCode.InternalServerError,
 					Description = ex.Message
