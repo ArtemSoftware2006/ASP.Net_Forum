@@ -11,50 +11,50 @@ namespace ASP.Net_Forum.DAL.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public AppDbContext DbContext { get; set; }
+        public AppDbContext _dbContext { get; set; }
 
         public UserRepository(AppDbContext dbContext)
         {
-            DbContext = dbContext;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> Create(User entity)
         {
-            DbContext.Add(entity);
-            await DbContext.SaveChangesAsync();
+            _dbContext.Add(entity);
+            await _dbContext.SaveChangesAsync();
 
             return true;
         }
 
         public async Task<bool> Delete(User entity)
         {
-            DbContext.Remove(entity);
-            await DbContext.SaveChangesAsync();
+            _dbContext.Remove(entity);
+            await _dbContext.SaveChangesAsync();
 
             return true;
         }
 
         public async Task<User> Get(int id)
         {
-            return await DbContext.Users.FirstOrDefaultAsync(x => x.Id == id); 
+            return await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id); 
         }
 
         public async Task<User> GetByLogin(string login)
         {
-            return await DbContext.Users.FirstOrDefaultAsync(x => x.Login == login);
+            return await _dbContext.Users.FirstOrDefaultAsync(x => x.Login == login);
         }
 
         public async Task<User> Update(User entity)
         {
-             DbContext.Users.Update(entity);
-             await DbContext.SaveChangesAsync();
+             _dbContext.Users.Update(entity);
+             await _dbContext.SaveChangesAsync();
 
              return entity;
         }
 
         public IQueryable<User> GetAll()
         {
-            return DbContext.Users;
+            return _dbContext.Users;
         }
     }
 }

@@ -31,25 +31,41 @@ namespace ASP.Net_Forum.Controllers.Tag
 
             return RedirectToAction("Error");
         }
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Create(TagCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var response = await _tagService.Create(model);
 
-                if (response.StatusCode == Domain.Enum.StatusCode.OK) 
+                if (response.StatusCode == Domain.Enum.StatusCode.OK || response.StatusCode == Domain.Enum.StatusCode.NotAcceptable) 
                 {
-                    return View(response.Data);
-                }
-                else
-                {
-                    return RedirectToAction("Error");
+                    var res = new
+                    {
+                        Bool = response.Data,
+                        Name = model.Name
+                    };
+
+                    return Json(res);
                 }
             }
-
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _tagService.Delete(id);
+
+                if (response.StatusCode == Domain.Enum.StatusCode.OK || response.StatusCode == Domain.Enum.StatusCode.NotAcceptable)
+                {
+                    return Json(response.Data);
+                }
+            }
+            return View();
+        }
+
 
     }
 }

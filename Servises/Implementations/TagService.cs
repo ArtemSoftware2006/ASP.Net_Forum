@@ -26,10 +26,10 @@ namespace ASP.Net_Forum.Service.Implementations
 			{
 				var tag = new Tag()
 				{
-					Name = model.Name,
+					Name = model.Name.Trim().ToUpper(),
 				};
 
-				if (_tagRepository.GetAll().FirstOrDefault(x => x.Name == model.Name) != null)
+				if (_tagRepository.GetAll().FirstOrDefault(x => x.Name == tag.Name) == null)
 				{
                     await _tagRepository.Create(tag);
 
@@ -43,9 +43,9 @@ namespace ASP.Net_Forum.Service.Implementations
 
                 return new BaseResponse<bool>()
                 {
-                    Data = true,
-                    Description = "OK",
-                    StatusCode = Domain.Enum.StatusCode.,
+                    Data = false,
+                    Description = "Такой тэг уже создан",
+                    StatusCode = Domain.Enum.StatusCode.NotAcceptable,
                 };
 
             }
@@ -60,9 +60,39 @@ namespace ASP.Net_Forum.Service.Implementations
 			}
 		}
 
-		public Task<BaseResponse<bool>> Delete(int id)
+		public async Task<BaseResponse<bool>> Delete(int id)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				if (await _tagRepository.Get(id) != null)
+				{
+                    Tag tag = new Tag() { Id = id };
+
+                    await _tagRepository.Delete(tag);
+
+                    return new BaseResponse<bool>()
+                    {
+                        Data = true,
+                        Description = "OK",
+                        StatusCode = Domain.Enum.StatusCode.OK,
+                    };
+                }
+                return new BaseResponse<bool>()
+                {
+                    Data = false,
+                    Description = $"Тэга с {id} нет",
+                    StatusCode = Domain.Enum.StatusCode.NotAcceptable,
+                };
+            }
+			catch (Exception ex)
+			{
+                return new BaseResponse<bool>
+                {
+                    StatusCode = Domain.Enum.StatusCode.InternalServerError,
+                    Data = false,
+                    Description = ex.Message,
+                };
+            }
 		}
 
 		public Task<BaseResponse<bool>> Edit(int id, Tag model)
