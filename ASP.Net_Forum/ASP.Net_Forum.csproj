@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Servises\ASP.Net_Forum.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\image\" />
+  </ItemGroup>
+
 </Project>

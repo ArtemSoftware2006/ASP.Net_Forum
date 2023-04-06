@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.Net_Forum.DAL", "ASP.Ne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.Net_Forum.Service", "Servises\ASP.Net_Forum.Service.csproj", "{FB294A05-1097-4CE2-AE1E-EDABAD3DA277}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{84547002-65AE-4CD9-9F89-19BB99090DD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
