@@ -29,15 +29,26 @@ namespace ASP.Net_Forum.Service.Implementations
 					Name = model.Name,
 				};
 
-				await _tagRepository.Create(tag);
-
-				return new BaseResponse<bool>()
+				if (_tagRepository.GetAll().FirstOrDefault(x => x.Name == model.Name) != null)
 				{
-					Data = true,
-					Description = "OK",
-					StatusCode = Domain.Enum.StatusCode.OK,
-				};
-			}
+                    await _tagRepository.Create(tag);
+
+                    return new BaseResponse<bool>()
+                    {
+                        Data = true,
+                        Description = "OK",
+                        StatusCode = Domain.Enum.StatusCode.OK,
+                    };
+                }
+
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    Description = "OK",
+                    StatusCode = Domain.Enum.StatusCode.,
+                };
+
+            }
 			catch (Exception ex)
 			{
 				return new BaseResponse<bool>

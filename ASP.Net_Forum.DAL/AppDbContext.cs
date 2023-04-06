@@ -26,5 +26,6 @@ namespace ASP.Net_Forum.DAL
         public DbSet<Note> Notes { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<NoteTags> NoteTags{ get; set;}
+        public DbSet<NoteCatigories> NoteCatigories { get; set; }
     }
 }
