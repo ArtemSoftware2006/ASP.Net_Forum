@@ -75,6 +75,28 @@ namespace ASP.Net_Forum.Controllers.User
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("~/Home/Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> EditProfil() => View();
+        [HttpPost]
+        public async Task<IActionResult> EditProfil(IFormFile avatar)
+        {
+            var result = await _userService.GetByLogin(User.Identity.Name);
+
+            if (result.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                using (FileStream fileStraem = System.IO.File.Create(Environment.CurrentDirectory + "\\images\\" + User.Identity.Name + ".png"))
+                {
+                    avatar.CopyTo(fileStraem);
+                    fileStraem.Flush();
+                }
+
+                await _userService.SetPhoto(User.Identity.Name, Environment.CurrentDirectory + "\\images\\" + User.Identity.Name + ".png");
+
+                return View(result.Data);
+            }
+
+            return RedirectToAction("Error");
+        }
 
         [HttpGet]
         public async Task<IActionResult> Profil()

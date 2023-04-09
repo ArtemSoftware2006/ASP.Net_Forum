@@ -62,6 +62,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors(builder => builder.AllowAnyOrigin());
+
 app.UseAuthentication();
 app.UseAuthorization();
 
