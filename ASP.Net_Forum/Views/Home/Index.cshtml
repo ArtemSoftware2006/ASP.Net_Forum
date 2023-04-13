@@ -1,6 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
 
 <div class="text-center">
     @if(User.Identity.IsAuthenticated)
@@ -9,7 +7,6 @@
     }
     else
     {
-        <h1 class="display-4">Привет, Мир!</h1>
         <p>Здесь будет форум от Тёмы</p>
     }
 </div>
