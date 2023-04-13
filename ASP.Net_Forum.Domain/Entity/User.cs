@@ -25,6 +25,7 @@ namespace ASP.Net_Forum.Domain.Entity
         public bool ConfirmEmail { get; set; }
         public string PathPhoto { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
+        public virtual ICollection<UserMark> UserMarks{ get; set; }
     }
 
 

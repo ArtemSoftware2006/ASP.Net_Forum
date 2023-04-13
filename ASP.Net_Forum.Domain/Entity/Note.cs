@@ -20,5 +20,6 @@ namespace ASP.Net_Forum.Domain.Entity
 		[ForeignKey("Users")]
 		public int UserId { get; set; }
 		public virtual User User { get; set; }
+		public virtual ICollection<UserMark> UserMarks { get; set; }
 	}
 }

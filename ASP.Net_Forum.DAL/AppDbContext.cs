@@ -15,13 +15,14 @@ namespace ASP.Net_Forum.DAL
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
+            Database.EnsureCreated();   
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
         }
-
+        public DbSet<UserMark> UserMarks { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<Tag> Tags { get; set; }

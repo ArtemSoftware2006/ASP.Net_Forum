@@ -11,6 +11,8 @@ using ASP.Net_Forum.Service.Implementations;
 using Service.Interfaces;
 using System.Configuration;
 using Service.Implementations;
+using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +26,7 @@ var config = conf_builder.Build();
 
 var connection = config.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 31))));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 32))));
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -72,3 +74,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
