@@ -20,8 +20,9 @@ namespace ASP.Net_Forum.Domain.Entity
 		public DateTime DateCreated { get; set; }
 		[ForeignKey("Users")]
 		public int UserId { get; set; }
-		public virtual ICollection<Category> Categories { get; set; }
-		public virtual User User { get; set; }
+        public virtual User User { get; set; }
+        public int CategoryId { get; set; }
+		public virtual Category Category { get; set; }
 		public virtual ICollection<UserMark> UserMarks { get; set; }
 	}
 }

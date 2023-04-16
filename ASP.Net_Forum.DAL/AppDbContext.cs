@@ -20,7 +20,12 @@ namespace ASP.Net_Forum.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Category>().HasData(
+                new Category() { id = 1, Name = "Дизайн" },
+                new Category() { id = 2, Name = "Мобильная разработка" },
+                new Category() { id = 3, Name = "Web" },
+                new Category() { id = 4, Name = "Desktop" },
+                new Category() { id = 5, Name = "Big Date" });
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<UserMark> UserMarks { get; set; }
