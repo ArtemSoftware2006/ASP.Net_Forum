@@ -10,6 +10,8 @@ namespace ASP.Net_Forum.Domain.ViewModels.Note
     {
         public string Title { get; set; }
         public string ShortDiscription { get; set; }
+        public int CategoryId { get; set; }
+        public List<int>? TagsId { get; set; }
         public string Body { get; set; }
         public int UserId { get; set; }
     }

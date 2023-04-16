@@ -33,7 +33,7 @@ namespace ASP.Net_Forum.Service.Implementations
 					Body = noteViewModel.Body,
 					Title = noteViewModel.Title,
 					ShortDiscription = noteViewModel.ShortDiscription,
-					DateCreated = DateTime.UtcNow,
+					DateCreated = DateTime.Now,
 					UserId = noteViewModel.UserId,
 					
 				};

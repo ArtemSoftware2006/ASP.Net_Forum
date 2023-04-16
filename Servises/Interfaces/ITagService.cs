@@ -13,7 +13,7 @@ namespace ASP.Net_Forum.Service.Interfaces
 	public interface ITagService
 	{
 		Task<BaseResponse<bool>> Edit(int id, Tag model);
-		Task<BaseResponse<IEnumerable<TagCreateViewModel>>> GetAllTags();
+		Task<BaseResponse<IEnumerable<Tag>>> GetAllTags();
 		Task<BaseResponse<Tag>> Get(int id);
 		Task<BaseResponse<bool>> Delete(int id);
 		Task<BaseResponse<bool>> Create(TagCreateViewModel model);

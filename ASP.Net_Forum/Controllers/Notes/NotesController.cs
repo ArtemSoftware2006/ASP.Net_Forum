@@ -14,11 +14,13 @@ namespace ASP.Net_Forum.Controllers.Notes
     public class NotesController : Controller
     {
         private readonly INoteService _noteService;
+        private readonly ITagService _tagService;
         private readonly IUserService _userService;
-        public NotesController(INoteService noteService, IUserService userService)
+        public NotesController(INoteService noteService, IUserService userService, ITagService tagService)
         {
             _noteService = noteService;
             _userService = userService;
+            _tagService = tagService;
         }
 
         [HttpGet]
@@ -56,7 +58,7 @@ namespace ASP.Net_Forum.Controllers.Notes
 
 		[HttpGet]
 		[Authorize]
-		public async Task<IActionResult> Create() => View();
+		public async Task<IActionResult> Create() => View(ViewBag.Tags = _tagService.GetAllTags().Result.Data);
         [HttpPost]
 		[Authorize]
 		public async Task<IActionResult> Create(NoteCreateViewModel noteModel)

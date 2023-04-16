@@ -130,26 +130,22 @@ namespace ASP.Net_Forum.Service.Implementations
 			}
 		}
 
-		public async Task<BaseResponse<IEnumerable<TagCreateViewModel>>> GetAllTags()
+		public async Task<BaseResponse<IEnumerable<Tag>>> GetAllTags()
 		{
 			try
 			{
-				var tags = _tagRepository.GetAll()
-					.Select(x => new TagCreateViewModel()
-					{
-						Name = x.Name,
-					});
+				var tags = _tagRepository.GetAll();
 
 				if (tags.Count() != 0)
 				{
-					 return new BaseResponse<IEnumerable<TagCreateViewModel>>
+					 return new BaseResponse<IEnumerable<Tag>>
 					 {
 						Data = tags,
 						StatusCode = Domain.Enum.StatusCode.OK,
 						Description = "OK",
 					 };
 				}
-				return new BaseResponse<IEnumerable<TagCreateViewModel>>
+				return new BaseResponse<IEnumerable<Tag>>
 				{
 					Data = tags,
 					StatusCode = Domain.Enum.StatusCode.NotFound,
@@ -158,7 +154,7 @@ namespace ASP.Net_Forum.Service.Implementations
 			}
 			catch (Exception ex)
 			{
-				return new BaseResponse<IEnumerable<TagCreateViewModel>>
+				return new BaseResponse<IEnumerable<Tag>>
 				{
 					StatusCode = Domain.Enum.StatusCode.InternalServerError,
 					Description = ex.Message

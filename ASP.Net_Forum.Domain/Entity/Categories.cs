@@ -10,5 +10,7 @@ namespace ASP.Net_Forum.Domain.Entity
     {
         public int id { get; set; }
         public string Name { get; set; }
+        public int NoteId { get; set; }
+        public Note Note { get; set; }
     }
 }

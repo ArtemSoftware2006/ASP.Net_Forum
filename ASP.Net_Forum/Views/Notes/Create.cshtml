@@ -1,6 +1,7 @@
-﻿@using ASP.Net_Forum.Domain.ViewModels.Note;
+﻿@using ASP.Net_Forum.Domain.Entity;
+@using ASP.Net_Forum.Domain.ViewModels.Note;
 
-@model NoteCreateViewModel
+@model IEnumerable<Tag>
 
 <div class="row overflow-hidden">
 
@@ -8,31 +9,38 @@
 
         <div class="col-6">
 
-              <div class="mb-3">
+            <div class="mb-3">
                 <label class="form-label">Title</label>
                 <input type="text" class="form-control" name="Title" placeholder="Введите название статьи" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-              </div>
+            </div>
 
-              <div class="mb-3">
+            <div class="mb-3">
                 <label class="form-label"></label>
                 <textarea input type="textera" class="form-control" name="ShortDiscription" placeholder="Введите краткое описание статьи"></textarea>
-                <span asp-validation-for="ShortDiscription" class="text-danger"></span>
-              </div>
+            </div>
 
-              <div class="mb-3">
+            <div class="mb-3">
                 <label class="form-label">Body</label>
                 <textarea class ="form-control" name="Body" placeholder="Введите текст статьи"></textarea>
-                <span asp-validation-for="Body" class="text-danger"></span>
-              </div>
+            </div>
 
-                <div class="d-flex">
+            <label class="mb-2" for="category">Выберете категорию</label>
+            <select  id="category" name="CategoryId" class="p-1">
+                @foreach (var item in ViewBag.Categories)
+                {
+                    <option class="" value="@item.Id">@item.Name</option>
+                }
+            </select>
 
-                    <div class="flex-column me-3">
-                        <button type="submit" class="btn btn-primary">Создать</button>
-                    </div>
 
-                 </div>
+
+        <div class="d-flex">
+
+                <div class="flex-column me-3">
+                    <button type="submit" class="btn btn-primary">Создать</button>
+                </div>
+
+            </div>
 
         </div>
 
