@@ -11,8 +11,6 @@ namespace ASP.Net_Forum.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly AppDbContext _appDbContext;
-
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;

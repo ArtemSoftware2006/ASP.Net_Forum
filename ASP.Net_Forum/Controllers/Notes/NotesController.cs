@@ -58,7 +58,7 @@ namespace ASP.Net_Forum.Controllers.Notes
 
 		[HttpGet]
 		[Authorize]
-		public async Task<IActionResult> Create() => View(ViewBag.Tags = _tagService.GetAllTags().Result.Data);
+		public async Task<IActionResult> Create() => View(ViewBag.Categories = _tagService.GetAllTags().Result.Data);
         [HttpPost]
 		[Authorize]
 		public async Task<IActionResult> Create(NoteCreateViewModel noteModel)

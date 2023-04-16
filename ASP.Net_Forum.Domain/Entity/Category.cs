@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.Domain.Entity
 {
-    public class Categories
+    public class Category
     {
         public int id { get; set; }
         public string Name { get; set; }
