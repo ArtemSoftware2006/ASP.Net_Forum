@@ -38,7 +38,7 @@ namespace ASP.Net_Forum.DAL.Repositories
             return await AppDbContext.Categories.FirstOrDefaultAsync(x => x.id == id);
         }
 
-        public IQueryable<Category> GetAll()
+        public async IQueryable<Category> GetAll()
         {
             return AppDbContext.Categories;
         }
