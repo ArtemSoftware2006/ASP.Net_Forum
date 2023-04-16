@@ -42,12 +42,23 @@ namespace ASP.Net_Forum.Service.Implementations
         {
             try
             {
-                var categories = _categoryService.GetAll();
+                var categories = await _categoryService.GetAll();
 
-                if (!categories.Co)
+                if (categories.Data.Count() != 0)
                 {
-
+                    return new BaseResponse<IEnumerable<Category>>
+                    {
+                        Data = categories.Data,
+                        Description = "ok",
+                        StatusCode = Domain.Enum.StatusCode.OK,
+                    };
                 }
+                return new BaseResponse<IEnumerable<Category>>
+                {
+                    StatusCode = Domain.Enum.StatusCode.NotFound,
+                    Description = "нет категорий",
+                };
+
             }
             catch (Exception ex)
             {
