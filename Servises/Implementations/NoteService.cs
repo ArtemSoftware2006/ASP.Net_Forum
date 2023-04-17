@@ -56,29 +56,30 @@ namespace ASP.Net_Forum.Service.Implementations
 				};
 			}		
 		}
-        public async Task<BaseResponse<IEnumerable<NoteViewModel>>> GetAll()
+        public async Task<BaseResponse<IEnumerable<NoteVm>>> GetAll()
         {
             try
             {
 				var notes = _noteRepository.GetAll()
-					.Select(x => new NoteViewModel()
+					.Select(x => new NoteVm()
 					{
 						Title = x.Title,
 						DateCreated = x.DateCreated,
 						ShortDiscription = x.ShortDiscription,
 						UserId = x.UserId,
 						Category = x.Category.Name,
-						Id = x.Id
+						Id = x.Id,
+						Views = x.Views,
 					}) ;
 				if (notes.Count() == 0)
 				{
-					return new BaseResponse<IEnumerable<NoteViewModel>>
+					return new BaseResponse<IEnumerable<NoteVm>>
 					{
 						Description = "Публикаций не найдено.",
 						StatusCode = StatusCode.NotFound,
 					};
 				}
-				return new BaseResponse<IEnumerable<NoteViewModel>>
+				return new BaseResponse<IEnumerable<NoteVm>>
 				{
 					Data = notes,
 					Description = "OK",
@@ -87,7 +88,7 @@ namespace ASP.Net_Forum.Service.Implementations
             }
 			catch (Exception ex)
 			{
-				return new BaseResponse<IEnumerable<NoteViewModel>>
+				return new BaseResponse<IEnumerable<NoteVm>>
 				{
                     StatusCode = StatusCode.InternalServerError,
                     Description = $"[Create(User)] : {ex.Message})"
@@ -102,7 +103,7 @@ namespace ASP.Net_Forum.Service.Implementations
 			throw new NotImplementedException();
 		}
 
-		public Task<BaseResponse<bool>> Edit(int id, NoteViewModel model)
+		public Task<BaseResponse<bool>> Edit(int id, NoteVm model)
 		{
 			throw new NotImplementedException();
 		}
@@ -115,6 +116,8 @@ namespace ASP.Net_Forum.Service.Implementations
 
 				if (note != null)
 				{
+					note.Views++;
+					_noteRepository.Update(note);
 					return new BaseResponse<Note>
 					{
 						Data = note,

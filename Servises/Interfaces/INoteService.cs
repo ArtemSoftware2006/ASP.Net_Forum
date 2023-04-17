@@ -12,8 +12,8 @@ namespace ASP.Net_Forum.Service.Interfaces
 {
 	public interface INoteService
 	{
-		Task<BaseResponse<bool>> Edit(int id, NoteViewModel model);
-		Task<BaseResponse<IEnumerable<NoteViewModel>>> GetAll();
+		Task<BaseResponse<bool>> Edit(int id, NoteVm model);
+		Task<BaseResponse<IEnumerable<NoteVm>>> GetAll();
 		Task<BaseResponse<Note>> Get(int id);
 		Task<BaseResponse<Note>> GetByLogin(string login);
 		Task<BaseResponse<Note>> GetByTitle(string title);

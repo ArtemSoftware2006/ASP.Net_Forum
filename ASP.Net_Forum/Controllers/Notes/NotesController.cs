@@ -33,7 +33,7 @@ namespace ASP.Net_Forum.Controllers.Notes
             }
             else if (response.StatusCode == Domain.Enum.StatusCode.NotFound)
             {
-                return View(new List<NoteViewModel>());
+                return View(new List<NoteVm>());
             }
             return RedirectToAction("Error");
         }
