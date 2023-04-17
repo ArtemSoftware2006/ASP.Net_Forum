@@ -24,9 +24,13 @@ else
 
 					<h4 class="m-2 p-2">@item.Title</h4>
 					<p class="m-2 p-2">@item.ShortDiscription</p>
-					<span class="">@item.DateCreated</span>
 
-					<button class="btn-primary" type="submit" name="noteId" value="@item.Id">Читать</button>
+					<button class="btn-primary rounded-1 p-1 mb-3" type="submit" name="noteId" value="@item.Id">Читать</button>
+
+					<div class="border-top d-flex p-2 pb-0 justify-content-around">
+						<span class="">@item.DateCreated</span>
+						<span class="">@item.Category</span>
+					</div>
 
 				</form>
 

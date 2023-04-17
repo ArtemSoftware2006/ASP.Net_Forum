@@ -231,7 +231,6 @@ namespace Service.Implementations
                 };
             }
         }
-
         public async Task<BaseResponse<ClaimsIdentity>> Registr(RegistrViewModel model)
         {
             try
@@ -310,7 +309,6 @@ namespace Service.Implementations
                 };
             }
         }
-
         private ClaimsIdentity Authenticate(User user)
         {
             var claims = new List<Claim>

@@ -67,6 +67,7 @@ namespace ASP.Net_Forum.Service.Implementations
 						DateCreated = x.DateCreated,
 						ShortDiscription = x.ShortDiscription,
 						UserId = x.UserId,
+						Category = x.Category.Name,
 						Id = x.Id
 					}) ;
 				if (notes.Count() == 0)
