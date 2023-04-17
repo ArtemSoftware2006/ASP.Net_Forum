@@ -1,4 +1,5 @@
-﻿using ASP.Net_Forum.Domain.Entity;
+﻿using ASP.Net_Forum.DAL.Interfaces;
+using ASP.Net_Forum.Domain.Entity;
 using ASP.Net_Forum.Domain.Response;
 using ASP.Net_Forum.Service.Interfaces;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
@@ -12,11 +13,11 @@ namespace ASP.Net_Forum.Service.Implementations
 {
     public class CategoryService : ICategoryService
     {
-        public ICategoryService _categoryService { get; set; }
+        public ICategoryRepository _categoryRepository { get; set; }
 
-        public CategoryService(ICategoryService categoryService)
+        public CategoryService(ICategoryRepository categoryRepository)
         {
-            _categoryService = categoryService;
+            _categoryRepository = categoryRepository;
         }
         public Task<BaseResponse<bool>> Create(Category userViewModel)
         {
@@ -42,13 +43,13 @@ namespace ASP.Net_Forum.Service.Implementations
         {
             try
             {
-                var categories = await _categoryService.GetAll();
+                var categories = _categoryRepository.GetAll().ToList();
 
-                if (categories.Data.Count() != 0)
+                if (categories.Count() != 0)
                 {
                     return new BaseResponse<IEnumerable<Category>>
                     {
-                        Data = categories.Data,
+                        Data = categories,
                         Description = "ok",
                         StatusCode = Domain.Enum.StatusCode.OK,
                     };

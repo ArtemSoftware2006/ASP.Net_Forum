@@ -1,8 +1,6 @@
 ﻿@using ASP.Net_Forum.Domain.Entity;
 @using ASP.Net_Forum.Domain.ViewModels.Note;
 
-@model IEnumerable<Tag>
-
 <div class="row overflow-hidden">
 
     <form class="form-check" method="post" asp-controller="Notes" asp-action="Create">
@@ -25,16 +23,19 @@
             </div>
 
             <label class="mb-2" for="category">Выберете категорию</label>
+
             <select  id="category" name="CategoryId" class="p-1">
+
                 @foreach (var item in ViewBag.Categories)
                 {
                     <option class="" value="@item.Id">@item.Name</option>
                 }
+
             </select>
 
 
 
-        <div class="d-flex">
+            <div class="d-flex">
 
                 <div class="flex-column me-3">
                     <button type="submit" class="btn btn-primary">Создать</button>

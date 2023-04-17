@@ -3,6 +3,7 @@ using System;
 using ASP.Net_Forum.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASP.Net_Forum.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230417075343_Inigrf")]
+    partial class Inigrf
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,6 +35,33 @@ namespace ASP.Net_Forum.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Дизайн"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Мобильная разработка"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Web"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Desktop"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Big Date"
+                        });
                 });
 
             modelBuilder.Entity("ASP.Net_Forum.Domain.Entity.Note", b =>
@@ -115,10 +145,10 @@ namespace ASP.Net_Forum.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("Age")
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("ConfirmEmail")
+                    b.Property<bool>("ConfirmEmail")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Email")
@@ -134,6 +164,7 @@ namespace ASP.Net_Forum.DAL.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("PathPhoto")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("Role")

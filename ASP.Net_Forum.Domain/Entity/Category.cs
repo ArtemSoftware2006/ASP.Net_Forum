@@ -8,7 +8,7 @@ namespace ASP.Net_Forum.Domain.Entity
 {
     public class Category
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

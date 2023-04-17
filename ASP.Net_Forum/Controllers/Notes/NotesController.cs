@@ -14,13 +14,13 @@ namespace ASP.Net_Forum.Controllers.Notes
     public class NotesController : Controller
     {
         private readonly INoteService _noteService;
-        private readonly ITagService _tagService;
+        private readonly ICategoryService _categoryService;
         private readonly IUserService _userService;
-        public NotesController(INoteService noteService, IUserService userService, ITagService tagService)
+        public NotesController(INoteService noteService, IUserService userService, ICategoryService categoryService)
         {
             _noteService = noteService;
             _userService = userService;
-            _tagService = tagService;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -58,10 +58,10 @@ namespace ASP.Net_Forum.Controllers.Notes
 
 		[HttpGet]
 		[Authorize]
-		public async Task<IActionResult> Create() => View(ViewBag.Categories = _tagService.GetAllTags().Result.Data);
+		public async Task<IActionResult> Create() => View(ViewBag.Categories = _categoryService.GetAll().Result.Data.ToList());
         [HttpPost]
 		[Authorize]
-		public async Task<IActionResult> Create(NoteCreateViewModel noteModel)
+		public async Task<IActionResult> Create(NoteCreateVm noteModel)
         {
             if (ModelState.IsValid)
             {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.Domain.ViewModels.Note
 {
-    public class NoteCreateViewModel
+    public class NoteCreateVm
     {
         public string Title { get; set; }
         public string ShortDiscription { get; set; }

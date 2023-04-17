@@ -18,6 +18,6 @@ namespace ASP.Net_Forum.Service.Interfaces
 		Task<BaseResponse<Note>> GetByLogin(string login);
 		Task<BaseResponse<Note>> GetByTitle(string title);
 		Task<BaseResponse<bool>> Delete(int id);
-		Task<BaseResponse<bool>> Create(NoteCreateViewModel userViewModel);
+		Task<BaseResponse<bool>> Create(NoteCreateVm userViewModel);
 	}
 }
