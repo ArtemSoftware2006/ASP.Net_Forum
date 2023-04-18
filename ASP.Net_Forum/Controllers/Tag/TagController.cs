@@ -40,7 +40,7 @@ namespace ASP.Net_Forum.Controllers.Tag
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK || response.StatusCode == Domain.Enum.StatusCode.NotAcceptable) 
                 {
-                    var res = new
+                    var res = new 
                     {
                         Bool = response.Data,
                         Name = model.Name

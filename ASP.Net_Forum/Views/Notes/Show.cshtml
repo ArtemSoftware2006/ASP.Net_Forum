@@ -14,7 +14,34 @@
 	<div class="m-3 overflow-hidden">
 		<p>@Model.Body</p>
 	</div>
+    <div>
+        <button class="not_liked p-1 rounded-1" id="Like">Понравилось</button>
+    </div>
 
 </div>
+
+@section Scripts
+{
+    <script>
+
+        $(function() 
+        {
+			$('#Like').on('click', function(e){
+				e.preventDefault();
+
+                $.getJSON('@Url.Action("ClickLike","Mark")?NoteId=' + @Model.Id, function (data) {
+                    console.log(data);
+                    console.log($('#Like'));
+                    if (data === true) {
+                        $('#Like').removeClass('not_liked').addClass('liked');
+                    }
+                    else {
+                        $('#Like').removeClass('liked').addClass('not_liked');
+                    }
+                });
+			});
+        });
+    </script>
+}
 
 
