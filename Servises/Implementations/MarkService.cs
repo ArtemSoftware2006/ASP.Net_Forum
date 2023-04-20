@@ -56,7 +56,6 @@ namespace ASP.Net_Forum.Service.Implementations
 				if (mark.Mark == (int)Mark.Like)
 				{
 					mark.Mark = (int)Mark.None;
-
 					await markRepository.Update(mark);
 
                     note.ValueMark--;
@@ -75,7 +74,6 @@ namespace ASP.Net_Forum.Service.Implementations
 				}
 
 				mark.Mark = (int)Mark.Like;
-
 				await markRepository.Update(mark);
 
                 note.ValueMark++;
