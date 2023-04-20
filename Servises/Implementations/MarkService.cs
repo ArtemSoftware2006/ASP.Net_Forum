@@ -15,10 +15,12 @@ namespace ASP.Net_Forum.Service.Implementations
 	public class MarkService : IMarkService
 	{
 		private readonly IMarkRepository markRepository;
+		private readonly INoteRepository noteRepository;
 
-		public MarkService(IMarkRepository markRepository)
+		public MarkService(IMarkRepository markRepository, INoteRepository noteRepository )
 		{
 			this.markRepository = markRepository;
+			this.noteRepository = noteRepository;
 		}
 
 		public async Task<BaseResponse<bool>> ClickLike(int UserId, int NoteId)
@@ -27,9 +29,11 @@ namespace ASP.Net_Forum.Service.Implementations
 			{
 				var mark = markRepository.GetAll().FirstOrDefault(x => x.NoteId == NoteId && x.UserId == UserId);
 
-				if (mark == null)
+                var note = await noteRepository.Get(NoteId);
+
+                if (mark == null)
 				{
-					mark = new UserMark()
+                    mark = new UserMark()
 					{
 						UserId = UserId,
 						NoteId = NoteId,
@@ -38,32 +42,46 @@ namespace ASP.Net_Forum.Service.Implementations
 
 					await markRepository.Create(mark);
 
-					return new BaseResponse<bool>() 
+					note.ValueMark++;
+					await noteRepository.Update(note);
+
+                    return new BaseResponse<bool>() 
 					{
 						Data = true,
 						Description = "Ok",
 						StatusCode = StatusCode.OK,
 					};
 				}
+
 				if (mark.Mark == (int)Mark.Like)
 				{
 					mark.Mark = (int)Mark.None;
 
 					await markRepository.Update(mark);
 
-					return new BaseResponse<bool> 
+                    note.ValueMark--;
+                    await noteRepository.Update(note);
+
+                    return new BaseResponse<bool> 
 					{ 
 						Data = false, 
 						Description = "Ok",
 						StatusCode = StatusCode.OK
 					};
 				}
+				else
+				{
+
+				}
 
 				mark.Mark = (int)Mark.Like;
 
 				await markRepository.Update(mark);
 
-				return new BaseResponse<bool>
+                note.ValueMark++;
+                await noteRepository.Update(note);
+
+                return new BaseResponse<bool>
 				{
 					Data = true,
 					Description = "Ok",
