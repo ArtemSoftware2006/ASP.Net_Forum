@@ -18,6 +18,7 @@ namespace ASP.Net_Forum.Domain.Entity
 		public string Body { get; set; }
 		public int ValueMark { get; set; }
 		public int Views { get; set; }
+		public int Raiting { get; set; }
 		public DateTime DateCreated { get; set; }
 		[ForeignKey("Users")]
 		public int UserId { get; set; }
