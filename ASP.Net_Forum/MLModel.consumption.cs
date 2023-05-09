@@ -15,17 +15,17 @@ namespace ASP_Net_Forum
         #region model input class
         public class ModelInput
         {
-            [ColumnName(@"userId")]
-            public float UserId { get; set; }
+            [ColumnName(@"Id")]
+            public float Id { get; set; }
 
-            [ColumnName(@"movieId")]
-            public float MovieId { get; set; }
+            [ColumnName(@"NoteId")]
+            public float NoteId { get; set; }
 
-            [ColumnName(@"rating")]
-            public float Rating { get; set; }
+            [ColumnName(@"CategoryId")]
+            public float CategoryId { get; set; }
 
-            [ColumnName(@"timestamp")]
-            public float Timestamp { get; set; }
+            [ColumnName(@"Mark")]
+            public float Mark { get; set; }
 
         }
 
@@ -37,17 +37,17 @@ namespace ASP_Net_Forum
         #region model output class
         public class ModelOutput
         {
-            [ColumnName(@"userId")]
-            public uint UserId { get; set; }
+            [ColumnName(@"Id")]
+            public uint Id { get; set; }
 
-            [ColumnName(@"movieId")]
-            public uint MovieId { get; set; }
+            [ColumnName(@"NoteId")]
+            public uint NoteId { get; set; }
 
-            [ColumnName(@"rating")]
-            public float Rating { get; set; }
+            [ColumnName(@"CategoryId")]
+            public float CategoryId { get; set; }
 
-            [ColumnName(@"timestamp")]
-            public float Timestamp { get; set; }
+            [ColumnName(@"Mark")]
+            public float Mark { get; set; }
 
             [ColumnName(@"Score")]
             public float Score { get; set; }

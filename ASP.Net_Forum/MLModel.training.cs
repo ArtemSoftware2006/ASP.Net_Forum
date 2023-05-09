@@ -34,9 +34,9 @@ namespace ASP_Net_Forum
         public static IEstimator<ITransformer> BuildPipeline(MLContext mlContext)
         {
             // Data process configuration with pipeline data transformations
-            var pipeline = mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"movieId",inputColumnName:@"movieId")      
-                                    .Append(mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"userId",inputColumnName:@"userId"))      
-                                    .Append(mlContext.Recommendation().Trainers.MatrixFactorization(new MatrixFactorizationTrainer.Options(){LabelColumnName=@"rating",MatrixColumnIndexColumnName=@"userId",MatrixRowIndexColumnName=@"movieId",ApproximationRank=77,LearningRate=0.00800208306470147,NumberOfIterations=345,Quiet=true}));
+            var pipeline = mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"NoteId",inputColumnName:@"NoteId")      
+                                    .Append(mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"Id",inputColumnName:@"Id"))      
+                                    .Append(mlContext.Recommendation().Trainers.MatrixFactorization(new MatrixFactorizationTrainer.Options(){LabelColumnName=@"Mark",MatrixColumnIndexColumnName=@"Id",MatrixRowIndexColumnName=@"NoteId",ApproximationRank=10,LearningRate=0.0557288237468638,NumberOfIterations=205,Quiet=true}));
 
             return pipeline;
         }

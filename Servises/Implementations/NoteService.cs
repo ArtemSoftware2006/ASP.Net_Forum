@@ -16,10 +16,12 @@ namespace ASP.Net_Forum.Service.Implementations
 	public class NoteService : INoteService
 	{
 		readonly INoteRepository _noteRepository;
+        private readonly IMarkRepository markRepository;
 
-		public NoteService(INoteRepository noteRepository)
+        public NoteService(INoteRepository noteRepository, IMarkRepository markRepository)
 		{
 			_noteRepository = noteRepository ?? throw new ArgumentNullException(nameof(noteRepository));
+			this.markRepository = markRepository;
 		}
 
 		public async Task<BaseResponse<bool>> Create(NoteCreateVm noteViewModel)
@@ -117,7 +119,8 @@ namespace ASP.Net_Forum.Service.Implementations
 				if (note != null)
 				{
 					note.Views++;
-					_noteRepository.Update(note);
+
+                    _noteRepository.Update(note);
 					return new BaseResponse<Note>
 					{
 						Data = note,

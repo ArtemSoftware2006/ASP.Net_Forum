@@ -26,6 +26,11 @@
     <Folder Include="images\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Data\users.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup Label="MLModel">
     <None Include="MLModel.consumption.cs">
       <DependentUpon>MLModel.mbconfig</DependentUpon>
