@@ -54,6 +54,7 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IMarkRepository, MarkRepository>();
 builder.Services.AddScoped<IMarkService, MarkService>();
+builder.Services.AddScoped<IRecomendationService, RecomendationService>();
 
 var app = builder.Build();
 
