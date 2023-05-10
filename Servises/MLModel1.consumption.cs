@@ -62,7 +62,7 @@ namespace ASP_Net_Forum_Service
 
         #endregion
 
-        private static string MLNetModelPath = Path.GetFullPath("MLModel1.zip");
+        private static string MLNetModelPath = "C:\\Users\\Artem\\Desktop\\Programs\\ASP.Net\\ASP.Net_Forum\\Servises\\MLModel1.zip";
 
         public static readonly Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(() => CreatePredictEngine(), true);
 

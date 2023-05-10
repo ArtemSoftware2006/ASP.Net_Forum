@@ -45,9 +45,9 @@ namespace ASP.Net_Forum.Service.Implementations
                     }
                 }
 
-                for (int i = 0; i < VALUE_NOTES; i++)
+                for (int i = 0; i < IdNotes.Count; i++)
                 {
-                    Notes.Add(await noteRepository.Get(i));
+                    Notes.Add(await noteRepository.Get(IdNotes[i]));
                 }
 
                 return new BaseResponse<IEnumerable<Note>>
