@@ -22,25 +22,7 @@
     <ProjectReference Include="..\Servises\ASP.Net_Forum.Service.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="images\" />
     <Folder Include="wwwroot\images\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Data\users.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup Label="MLModel">
-    <None Include="MLModel.consumption.cs">
-      <DependentUpon>MLModel.mbconfig</DependentUpon>
-    </None>
-    <None Include="MLModel.training.cs">
-      <DependentUpon>MLModel.mbconfig</DependentUpon>
-    </None>
-    <None Include="MLModel.zip">
-      <DependentUpon>MLModel.mbconfig</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

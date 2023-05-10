@@ -8,9 +8,9 @@ using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
 using Microsoft.ML;
 
-namespace ASP_Net_Forum
+namespace ASP_Net_Forum_Service
 {
-    public partial class MLModel
+    public partial class MLModel1
     {
         /// <summary>
         /// Retrains model using the pipeline generated as part of the training process. For more information on how to load data, see aka.ms/loaddata.
@@ -36,7 +36,7 @@ namespace ASP_Net_Forum
             // Data process configuration with pipeline data transformations
             var pipeline = mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"NoteId",inputColumnName:@"NoteId")      
                                     .Append(mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"Id",inputColumnName:@"Id"))      
-                                    .Append(mlContext.Recommendation().Trainers.MatrixFactorization(new MatrixFactorizationTrainer.Options(){LabelColumnName=@"Mark",MatrixColumnIndexColumnName=@"Id",MatrixRowIndexColumnName=@"NoteId",ApproximationRank=10,LearningRate=0.0557288237468638,NumberOfIterations=205,Quiet=true}));
+                                    .Append(mlContext.Recommendation().Trainers.MatrixFactorization(new MatrixFactorizationTrainer.Options(){LabelColumnName=@"Mark",MatrixColumnIndexColumnName=@"Id",MatrixRowIndexColumnName=@"NoteId",ApproximationRank=36,LearningRate=0.0864942179519815,NumberOfIterations=331,Quiet=true}));
 
             return pipeline;
         }

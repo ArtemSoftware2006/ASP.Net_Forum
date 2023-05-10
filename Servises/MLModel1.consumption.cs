@@ -5,12 +5,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
-namespace ASP_Net_Forum
+namespace ASP_Net_Forum_Service
 {
-    public partial class MLModel
+    public partial class MLModel1
     {
         /// <summary>
-        /// model input class for MLModel.
+        /// model input class for MLModel1.
         /// </summary>
         #region model input class
         public class ModelInput
@@ -24,6 +24,9 @@ namespace ASP_Net_Forum
             [ColumnName(@"CategoryId")]
             public float CategoryId { get; set; }
 
+            [ColumnName(@"ValueMark")]
+            public float ValueMark { get; set; }
+
             [ColumnName(@"Mark")]
             public float Mark { get; set; }
 
@@ -32,7 +35,7 @@ namespace ASP_Net_Forum
         #endregion
 
         /// <summary>
-        /// model output class for MLModel.
+        /// model output class for MLModel1.
         /// </summary>
         #region model output class
         public class ModelOutput
@@ -46,6 +49,9 @@ namespace ASP_Net_Forum
             [ColumnName(@"CategoryId")]
             public float CategoryId { get; set; }
 
+            [ColumnName(@"ValueMark")]
+            public float ValueMark { get; set; }
+
             [ColumnName(@"Mark")]
             public float Mark { get; set; }
 
@@ -56,7 +62,7 @@ namespace ASP_Net_Forum
 
         #endregion
 
-        private static string MLNetModelPath = Path.GetFullPath("MLModel.zip");
+        private static string MLNetModelPath = Path.GetFullPath("MLModel1.zip");
 
         public static readonly Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(() => CreatePredictEngine(), true);
 
