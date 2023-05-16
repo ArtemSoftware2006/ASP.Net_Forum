@@ -21,6 +21,7 @@ namespace ASP.Net_Forum.DAL
         {
             base.OnModelCreating(modelBuilder);
         }
+        public DbSet<UserViews> UserViews { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<UserMark> UserMarks { get; set; }
         public DbSet<User> Users { get; set; }
