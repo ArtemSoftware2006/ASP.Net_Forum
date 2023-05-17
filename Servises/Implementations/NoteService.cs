@@ -1,15 +1,9 @@
 ﻿using ASP.Net_Forum.DAL.Interfaces;
-using ASP.Net_Forum.DAL.Repositories;
 using ASP.Net_Forum.Domain.Entity;
 using ASP.Net_Forum.Domain.Enum;
 using ASP.Net_Forum.Domain.Response;
 using ASP.Net_Forum.Domain.ViewModels.Note;
 using ASP.Net_Forum.Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.Service.Implementations
 {

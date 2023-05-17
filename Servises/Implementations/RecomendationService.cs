@@ -12,6 +12,7 @@ using ASP_Net_Forum_Service;
 using ASP.Net_Forum.DAL.Interfaces;
 using ASP.Net_Forum.DAL.Repositories;
 using ASP.Net_Forum.Domain.Entity;
+using System.Runtime.CompilerServices;
 
 namespace ASP.Net_Forum.Service.Implementations
 {
@@ -20,10 +21,12 @@ namespace ASP.Net_Forum.Service.Implementations
         private const int VALUE_NOTES = 30;
         private const float MIN_SCORE = 1.4F;
         private readonly INoteRepository noteRepository;
+        private readonly IMarkRepository markRepository;
 
-        public RecomendationService(INoteRepository noteRepository)
+        public RecomendationService(INoteRepository noteRepository, IMarkRepository markRepository)
         {
             this.noteRepository = noteRepository;
+            this.markRepository = markRepository;
         }
 
         public async Task<BaseResponse<IEnumerable<Note>>> Get(int userId)
@@ -31,7 +34,12 @@ namespace ASP.Net_Forum.Service.Implementations
             try
             {
                 var IdNotes = new List<int>();
-                var Notes = new List<Note>();
+                var RecommendNotes = new List<Note>();
+                var DontViewedNotesId = new List<int>();
+                var NotesThereUserAlreadyMarked = new List<int>();
+
+                NotesThereUserAlreadyMarked = markRepository.GetAll().Where(y => y.UserId == userId).Select(x => x.NoteId).ToList();
+                DontViewedNotesId = noteRepository.GetAll().Where(x => !NotesThereUserAlreadyMarked.Any(y => y == x.Id)).Select(x => x.Id).ToList();
 
                 for (int i = 1; i < VALUE_NOTES; i++)
                 {
@@ -39,7 +47,7 @@ namespace ASP.Net_Forum.Service.Implementations
 
                     var result = MLModel1.Predict(sampleData);
 
-                    if (result.Score >= MIN_SCORE)
+                    if (result.Score >= MIN_SCORE && DontViewedNotesId.Any(x => x == result.NoteId))
                     {
                         IdNotes.Add(Convert.ToInt32(result.NoteId));
                     }
@@ -47,12 +55,12 @@ namespace ASP.Net_Forum.Service.Implementations
 
                 for (int i = 0; i < IdNotes.Count; i++)
                 {
-                    Notes.Add(await noteRepository.Get(IdNotes[i]));
+                    RecommendNotes.Add(await noteRepository.Get(IdNotes[i]));
                 }
 
                 return new BaseResponse<IEnumerable<Note>>
                 {
-                    Data = Notes,
+                    Data = RecommendNotes,
                     Description = "Ok",
                     StatusCode = Domain.Enum.StatusCode.OK
                 };

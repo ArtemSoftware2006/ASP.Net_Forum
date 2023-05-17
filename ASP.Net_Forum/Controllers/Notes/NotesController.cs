@@ -1,13 +1,8 @@
 ﻿using ASP.Net_Forum.Domain.ViewModels.Note;
 using ASP.Net_Forum.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using ASP.Net_Forum.Domain.Enum;
-using ASP.Net_Forum.Domain.Entity;
 using Microsoft.AspNetCore.Authorization;
-using ASP.Net_Forum.DAL.Interfaces;
 using Service.Interfaces;
-using Service.Implementations;
-using ASP.Net_Forum.DAL.Migrations;
 
 namespace ASP.Net_Forum.Controllers.Notes
 {

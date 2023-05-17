@@ -5,14 +5,7 @@ using ASP.Net_Forum.Domain.Helpers;
 using ASP.Net_Forum.Domain.Response;
 using ASP.Net_Forum.Domain.ViewModels.User;
 using Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Security;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Implementations
 {
