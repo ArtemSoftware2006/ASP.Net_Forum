@@ -10,7 +10,6 @@ namespace ASP.Net_Forum.Domain.Enum
     {
         OK = 200,
         NotFound = 404,
-        NotAcceptable = 406,
         InternalServerError = 500,
     }
 }

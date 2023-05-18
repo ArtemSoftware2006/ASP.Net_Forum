@@ -2,17 +2,13 @@ using ASP.Net_Forum.DAL;
 using ASP.Net_Forum.DAL.Interfaces;
 using ASP.Net_Forum.DAL.Repositories;
 using ASP.Net_Forum.Domain.Entity;
-using ASP.Net_Forum.Service.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using ASP.Net_Forum.Service.Implementations;
+using Service.Implementations;
 using Service.Interfaces;
 using System.Configuration;
-using Service.Implementations;
-using Microsoft.AspNetCore.Authorization;
-using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,27 +30,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Home/Index";
     });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("admin", policy =>
-    {
-        policy.RequireRole("admin");
-    });
-});
-
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
-builder.Services.AddScoped<INoteService, ASP.Net_Forum.Service.Implementations.NoteService>();
-builder.Services.AddScoped<ITagRepository, TagRepository>();
-builder.Services.AddScoped<ITagService, TagService>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IMarkRepository, MarkRepository>();
-builder.Services.AddScoped<IMarkService, MarkService>();
-builder.Services.AddScoped<IRecomendationService, RecomendationService>();
 
 var app = builder.Build();
 
@@ -69,8 +49,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseCors(builder => builder.AllowAnyOrigin());
-
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -79,5 +57,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
-

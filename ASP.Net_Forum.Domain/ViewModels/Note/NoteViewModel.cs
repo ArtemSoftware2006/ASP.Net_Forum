@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.Domain.ViewModels.Note
 {
-	public class NoteVm
+	public class NoteViewModel
 	{
-        public int Id { get; set; }
-        public string Title { get; set; }
-		public DateTime DateCreated { get; set; }
-		public int Views { get; set; }
-		public string Category { get; set; }
+		public string Title { get; set; }
+		public string Body { get; set; }
 		public string ShortDiscription { get; set; }
 		public int UserId { get; set; }
 	}

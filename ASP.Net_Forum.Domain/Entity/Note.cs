@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace ASP.Net_Forum.Domain.Entity
 {
-	[Table("Notes")]
 	public class Note
 	{
 		[Key]
@@ -16,14 +15,8 @@ namespace ASP.Net_Forum.Domain.Entity
 		public string Title { get; set; }
 		public string ShortDiscription { get; set; }
 		public string Body { get; set; }
-		public int ValueMark { get; set; }
-		public int Views { get; set; }
 		public DateTime DateCreated { get; set; }
-		[ForeignKey("Users")]
 		public int UserId { get; set; }
-        public virtual User User { get; set; }
-        public int CategoryId { get; set; }
-		public virtual Category Category { get; set; }
-		public virtual ICollection<UserMark> UserMarks { get; set; }
+		public User User { get; set; }
 	}
 }

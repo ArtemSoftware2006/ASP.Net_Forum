@@ -1,10 +1,8 @@
 ﻿using ASP.Net_Forum.DAL.Interfaces;
 using ASP.Net_Forum.Domain.Entity;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,7 +33,7 @@ namespace ASP.Net_Forum.DAL.Repositories
 
 		public async Task<Note> Get(int id)
 		{
-			return DbContext.Notes.Include(x => x.User).FirstOrDefault(x => x.Id == id);
+			return DbContext.Notes.FirstOrDefault(x => x.Id == id);
 		}
 		public async Task<Note> Update(Note entity)
 		{

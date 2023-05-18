@@ -1,47 +1,24 @@
-﻿@using ASP.Net_Forum.Domain.ViewModels.Note;
+﻿
 
-@model List<NoteVm>
+<div class="container overflow-hidden">
 
+		<div class="row row-cols-2 g-2">
 
-@if (Model.Count == 0)
-{
-	<div class="text-center h1 m-2 p-2">
-		Пока нет статей!
-	</div>
-
-	<div class="text-center h4 m-2 p-2">
-		Но скоро будут...
-	</div>
-}
-else
-{
-	<div class="row row-cols-2 justify-content-around">
-
-		@foreach (var item in Model)
-		{
-			<div class="col-5 border rounded-2 m-1 p-2">
-				<form asp-controller="Notes" asp-action="Show" method="post">
-
-					<h4 class="m-2 p-2">@item.Title</h4>
-					<p class="m-2 p-2">@item.ShortDiscription</p>
-
-					<div class="d-flex p-2 justify-content-between">
-						<button class="btn-primary rounded-1 p-1 mb-3 ms-2" type="submit" name="noteId" value="@item.Id">Читать</button>
-						<span class="" style="color:gray" >@item.Views</span>
-					</div>
-
-
-					<div class="border-top d-flex p-2 pb-0 justify-content-around">
-						<span class="">@item.DateCreated</span>
-						<span class="" style="color:gray">@item.Category</span>
-					</div>
-
-				</form>
-
+			<div class="col">
+				<div class="border border-3 p-4">статья</div> 
 			</div>
-		}
 
-	</div>
-}
-	
+			<div class="col">
+				<div class="border border-3 p-4">статья</div>
+			</div>
 
+			<div class="col">
+				<div class="border border-3 p-4">статья</div>
+			</div>
+
+			<div class="col">
+				<div class="border border-3 p-4">статья</div>
+			</div>
+
+		</div>
+</div>

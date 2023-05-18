@@ -19,13 +19,11 @@ namespace ASP.Net_Forum.Domain.Entity
         public int Id { get; set; }
         public string Login { get; set; }
         public string PasswordHash { get; set; }
-        public int? Age { get; set; }
+        public int Age { get; set; }
         public Role Role{ get; set; }
         public string Email { get; set; }
-        public bool? ConfirmEmail { get; set; }
-        public string? PathPhoto { get; set; }
-        public virtual ICollection<Note> Notes { get; set; }
-        public virtual ICollection<UserMark> UserMarks{ get; set; }
+        public bool ConfirmEmail { get; set; }
+        public List<Note> Notes { get; set; }
     }
 
 
