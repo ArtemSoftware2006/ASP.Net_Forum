@@ -17,12 +17,16 @@ namespace ASP.Net_Forum.DAL
         {
         }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
-			base.OnModelCreating(modelBuilder);
-		}
-
-		public DbSet<User> Users { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+        public DbSet<UserViews> UserViews { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<UserMark> UserMarks { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Note> Notes { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<NoteTags> NoteTags{ get; set;}
     }
 }

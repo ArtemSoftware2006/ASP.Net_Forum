@@ -1,0 +1,26 @@
+﻿<div class="row">
+
+    <div class="col-6">
+        
+        <div class="btn-group">
+
+            <form class="form-check" method="post" asp-controller="User" asp-action="EditProfil" enctype="multipart/form-data">
+
+                <div class="row mb-3">
+
+                    <div class="col">
+                        <label> Аватарка</label> <br />
+                        <input enctype="multipart/form-data" type="file" name="avatar" multiple accept=".jpg,.jpeg,.png,.gif" />
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Сохранить
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>
+

@@ -6,11 +6,12 @@
     <title>@ViewData["Title"] - Форум от Тёмы</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ASP.Net_Forum.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-1">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Форум от Тёмы</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -47,20 +48,13 @@
                             <li class="nav-item">
                                 <a class="nav-link text-black border border-2" asp-area="" asp-controller="User" asp-action="Profil">Профиль</a>
                             </li>
-                        }
-                        @if(User.IsInRole("admin"))
-                        {
                             <li class="nav-item">
-                                <a class="nav-link text-black">Режим <span class="text-decoration-underline">Админ</span></a>
+                                <a class="nav-link text-black" asp-area="" asp-controller="Recomendation" asp-action="Recomendation">Для Вас</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-black" asp-area="" asp-controller="User" asp-action="GetAllUsers">Все пользователи</a>
+                                <a class="nav-link text-black" asp-area="" asp-controller="Notes" asp-action="Create">Написать статью</a>
                             </li>
                         }
-
-                        <li class="nav-item">
-                            <a class="nav-link text-black" asp-area="" asp-controller="User" asp-action="">Best Practics</a>
-                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link text-black" asp-area="" asp-controller="Notes" asp-action="ShowAll">Статьи</a>
@@ -71,11 +65,36 @@
             </div>
         </nav>
     </header>
+    @if (User.IsInRole("Admin"))
+    {
+    <div class="p-2 mb-3 d-flex justify-content-around" style="background-color:honeydew">
+        <div class="">
+            <a class="nav-link text-black">Режим <span class="text-decoration-underline">Админ</span></a>
+        </div>
+        <div class="">
+            <a class="nav-link text-black" asp-area="" asp-controller="User" asp-action="GetAllUsers">Пользователи</a>
+        </div>
+        <div class="">
+            <a class="nav-link text-black" asp-area="" asp-controller="Tag" asp-action="GetAll">Тэги</a>
+        </div>
+
+    </div>
+    }
 
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+        <div class="row">
+
+            <div class="col-1"></div>
+
+            <main role="main" class="pb-3 col-10">
+                @RenderBody()
+            </main>
+
+            <div class="col-1"></div>
+
+        </div>
+
     </div>
 
     <footer class="border-top footer text-muted">
