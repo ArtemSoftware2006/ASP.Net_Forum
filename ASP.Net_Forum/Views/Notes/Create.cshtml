@@ -1,0 +1,52 @@
+﻿@using ASP.Net_Forum.Domain.Entity;
+@using ASP.Net_Forum.Domain.ViewModels.Note;
+
+<div class="row overflow-hidden">
+
+    <form class="form-check" method="post" asp-controller="Notes" asp-action="Create">
+
+        <div class="col-6">
+
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" class="form-control" name="Title" placeholder="Введите название статьи" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"></label>
+                <textarea input type="textera" class="form-control" name="ShortDiscription" placeholder="Введите краткое описание статьи"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Body</label>
+                <textarea class ="form-control" name="Body" placeholder="Введите текст статьи"></textarea>
+            </div>
+
+            <label class="mb-2" for="category">Выберете категорию</label>
+
+            <select  id="category" name="CategoryId" class="p-1">
+
+                @foreach (var item in ViewBag.Categories)
+                {
+                    <option class="" value="@item.Id">@item.Name</option>
+                }
+
+            </select>
+
+
+
+            <div class="d-flex">
+
+                <div class="flex-column me-3">
+                    <button type="submit" class="btn btn-primary">Создать</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+

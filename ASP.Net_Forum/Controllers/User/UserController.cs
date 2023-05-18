@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Drawing;
 
 namespace ASP.Net_Forum.Controllers.User
 {
@@ -74,6 +75,28 @@ namespace ASP.Net_Forum.Controllers.User
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("~/Home/Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> EditProfil() => View();
+        [HttpPost]
+        public async Task<IActionResult> EditProfil(IFormFile avatar)
+        {
+            var result = await _userService.GetByLogin(User.Identity.Name);
+
+            if (result.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                using (FileStream fileStraem = System.IO.File.Create(Environment.CurrentDirectory + "\\images\\" + User.Identity.Name + ".png"))
+                {
+                    avatar.CopyTo(fileStraem);
+                    fileStraem.Flush();
+                }
+
+                await _userService.SetPhoto(User.Identity.Name, Environment.CurrentDirectory + "\\images\\" + User.Identity.Name + ".png");
+
+                return View(result.Data);
+            }
+
+            return RedirectToAction("Error");
+        }
 
         [HttpGet]
         public async Task<IActionResult> Profil()
@@ -87,7 +110,26 @@ namespace ASP.Net_Forum.Controllers.User
 
             return RedirectToAction("Error");
         }
+        [HttpPost]
+        public async Task<IActionResult> SetPhoto(byte[] avatar)
+        {
+            var result = await _userService.GetByLogin(User.Identity.Name);
 
+            if (result.StatusCode == Domain.Enum.StatusCode.OK)
+            {
+                using (MemoryStream ms = new MemoryStream(avatar))
+                {
+                    Image img = Image.FromStream(ms);
+                    img.Save(Environment.CurrentDirectory + "\\Images\\" + User.Identity.Name + ".png");
+                }
+
+                await _userService.SetPhoto(User.Identity.Name, Environment.CurrentDirectory + "\\Images\\" + User.Identity.Name + ".png");
+
+                return View(result.Data);
+            }
+
+            return RedirectToAction("Error");
+        }
         [HttpGet]
         public async Task<IActionResult> GetUser(int id)
         {
@@ -160,7 +202,7 @@ namespace ASP.Net_Forum.Controllers.User
                 }
                 else
                 {
-                    response = await _userService.Edit(model.Id, model);
+                    response = await _userService.Edit(model);
                 }
 
                 if (response.StatusCode == Domain.Enum.StatusCode.OK)

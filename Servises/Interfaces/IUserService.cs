@@ -12,7 +12,7 @@ namespace Service.Interfaces
 {
     public interface IUserService
     {
-        Task<BaseResponse<bool>> Edit(int id, UserViewModel model);
+        Task<BaseResponse<bool>> Edit(UserViewModel model);
         Task<BaseResponse<IEnumerable<User>>> GetAll();
         Task<BaseResponse<User>> Get(int id);
         Task<BaseResponse<User>> GetByLogin(string login);
@@ -20,5 +20,6 @@ namespace Service.Interfaces
         Task<BaseResponse<bool>> Create(UserViewModel userViewModel);
         Task<BaseResponse<ClaimsIdentity>> Registr(RegistrViewModel model);
         Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model);
+        Task<BaseResponse<bool>> SetPhoto(string login, string photoPath);
     }
 }

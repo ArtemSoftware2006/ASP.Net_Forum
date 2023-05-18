@@ -1,0 +1,97 @@
+﻿@using ASP.Net_Forum.Domain.Entity;
+
+@model List<Tag>
+
+@{
+    ViewData["Title"] = "AdminMenu";
+}
+
+@if (Model.Count == 0)
+{
+    <h2>Тэгов нет</h2>
+
+    <button class="p-3 m-1 btn-primary bg-primary" id="btn-show-add">Добавить тэг</button> <br>
+    <div id="TagRow" class="p-2 mb-2 d-flex flex-wrap border rounded-1"></div>
+
+
+    <input class="p-2 m-1 d-none" id="input" name="Name" type="text" placeholder="Имя тэга" /> <br>
+    <button class="p-3 m-1 btn-primary bg-primary d-none" id="btn-add">Добавить</button>
+}
+else
+{
+    <div class="row">
+
+        <div class="visually-hidden bg-danger p-3 m-3" id="dangerDiv">Тэг с таким названием уже есть!!!</div>
+
+        <h2>Существующие тэги</h2>
+
+        <div id="TagRow" class="p-2 mb-2 d-flex flex-wrap border rounded-1">
+
+            @foreach (var item in Model)
+            {
+                <div class="m-1 p-1 border-1 rounded-1" style="background-color:lightgrey" >@item.Name</div>
+            }
+
+        </div>
+
+        <button class="p-3 m-1 btn-primary bg-primary" type="submit" id="btn-show-add">Добавить тэг</button> <br>
+
+
+        <h3 class="ms-5 p-1 d-none" id="LabelAddTag">Добавление тэга</h3>
+        <input class="p-2 m-1 d-none" id="input" name="Name" type="text" placeholder="Имя тэга" /> <br>
+        <button class="p-3 m-1 btn-primary bg-primary d-none" id="btn-add">Добавить</button>
+
+    </div>
+
+}
+
+
+@section Scripts{
+	<script>
+
+		$(function() 
+        {
+
+            $('#btn-show-add').on('click', function (e) 
+            {
+                var input = $('input');
+                var btn_add = $('#btn-add');
+                var labelAdd = $('#LabelAddTag');
+
+                 if (input.hasClass('d-none') || btn_add.hasClass('d-none')) {
+                    input.addClass('d-block').removeClass('d-none');
+                    btn_add.addClass('d-block').removeClass('d-none');
+                    labelAdd.addClass('d-block').removeClass('d-none');
+                 }
+                $('#btn-show-add').hide();
+                e.preventDefault();
+				 
+			});
+
+            $('#btn-add').on('click', function (e) 
+            {
+				 e.preventDefault();
+                 var name = $('#input').val();
+
+                $.getJSON('@Url.Action("Create","Tag")?Name=' + name, function(data)
+                {
+                    if(data.bool == true)
+                    {
+                        $('#TagRow').append('<div class="m-1 p-1 border-1 rounded-1" style="background-color:lightgrey" >'
+                            + data.name + '</div>');
+                    }
+                    else
+                    {
+                        $('#dangerDiv').removeClass('visually-hidden').addClass('visible');
+
+                        setTimeout(() => 
+                        {
+                            $('#dangerDiv').removeClass('visible').addClass('visually-hidden');
+                        },
+                        6000);
+                    }
+                });
+			});
+		});
+	</script>
+}

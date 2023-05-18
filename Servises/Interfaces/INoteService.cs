@@ -12,12 +12,12 @@ namespace ASP.Net_Forum.Service.Interfaces
 {
 	public interface INoteService
 	{
-		Task<BaseResponse<bool>> Edit(int id, NoteViewModel model);
-		Task<BaseResponse<IEnumerable<Note>>> GetAll();
+		Task<BaseResponse<bool>> Edit(int id, NoteVm model);
+		Task<BaseResponse<IEnumerable<NoteVm>>> GetAll();
 		Task<BaseResponse<Note>> Get(int id);
 		Task<BaseResponse<Note>> GetByLogin(string login);
 		Task<BaseResponse<Note>> GetByTitle(string title);
 		Task<BaseResponse<bool>> Delete(int id);
-		Task<BaseResponse<bool>> Create(NoteViewModel userViewModel);
+		Task<BaseResponse<bool>> Create(NoteCreateVm userViewModel);
 	}
 }

@@ -4,52 +4,67 @@
 <div class="row">
 
 	<div class="col-6">
+        <div class="row mb-3">
 
+            <div class="col">
+                <label> Аватарка</label>
+            </div>
+
+            <div class="col">
+                <img src="@Model.PathPhoto" alt="Аватарки нет"/>@*Картинка не отобразится, так как src использует машину пользоватлея. Нужно сохранять картинку в wwwroot*@
+            </div>
+
+        </div>
+        <div class="row mb-3">
+
+            <div class="col">
+                <label class="form-label">Логин</label>
+            </div>
+
+            <div class="col">
+                <label class="p-2"> @Model.Login </label>
+            </div>
+
+        </div>
+        <div class="row mb-3">
+
+            <div class="col">
+                <label class="form-label">Возраст</label>
+            </div>
+
+            <div class="col">
+                <label class="p-2"> @Model.Age </label>
+            </div>
+
+        </div>
             <div class="row mb-3">
 
-                <div class="col">
-                    <label class="form-label">Логин</label>
-                </div>
-
-                <div class="col">
-                    <label class="p-2"> @Model.Login </label>
-                </div>
-
+            <div class="col">
+                <label class="form-label">Почта</label>
             </div>
 
-             <div class="row mb-3">
-
-                <div class="col">
-                    <label class="form-label">Возраст</label>
-                </div>
-
-                <div class="col">
-                    <label class="p-2"> @Model.Age </label>
-                </div>
-
+            <div class="col">
+                <label class="p-2"> @Model.Email </label>
             </div>
-             <div class="row mb-3">
 
-                <div class="col">
-                    <label class="form-label">Почта</label>
-                </div>
-
-                <div class="col">
-                    <label class="p-2"> @Model.Email </label>
-                </div>
-
-            </div>
+        </div>
              
 
-            <div class="btn-group">
+        <div class="btn-group">
 
-                <form class="form-check" asp-controller="User" asp-action="Logout">
-                    <button type="submit" class="btn btn-primary">
-                        Выйти
-                    </button>
-                </form>
+            <form class="form-check" method="get" asp-controller="User" asp-action="EditProfil">
+                <button type="submit" class="btn btn-primary">
+                    Изменить
+                </button>
+            </form>
+
+            <form class="form-check" asp-controller="User" asp-action="Logout">
+                <button type="submit" class="btn btn-primary">
+                    Выйти
+                </button>
+            </form>
                 
-            </div>
+        </div>
       </div>
 </div>
 

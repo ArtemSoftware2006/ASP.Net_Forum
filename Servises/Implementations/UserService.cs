@@ -5,14 +5,7 @@ using ASP.Net_Forum.Domain.Helpers;
 using ASP.Net_Forum.Domain.Response;
 using ASP.Net_Forum.Domain.ViewModels.User;
 using Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Security;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Implementations
 {
@@ -169,12 +162,13 @@ namespace Service.Implementations
                 };
             }
         }
-        public async Task<BaseResponse<bool>> Edit(int id, UserViewModel model)
+        public async Task<BaseResponse<bool>> Edit(UserViewModel model)
         {
             var baseResponse = new BaseResponse<bool>();
             try
             {
-                var user = await _userRepository.Get(id);
+                var user = _userRepository.GetAll().FirstOrDefault(x => x.Login == model.UserName);
+
                 if (user != null)
                 {
                     baseResponse.StatusCode = StatusCode.NotFound;
@@ -201,7 +195,35 @@ namespace Service.Implementations
                 };
             }
         }
+        public async Task<BaseResponse<bool>> SetPhoto(string login, string photoPath)
+        {
+            var baseResponse = new BaseResponse<bool>();
+            try
+            {
+                var user = _userRepository.GetAll().FirstOrDefault(x => x.Login == login);
 
+                if (user != null)
+                {
+                    user.PathPhoto = photoPath;
+                    await _userRepository.Update(user);
+                }
+                else
+                {
+                    baseResponse.StatusCode = StatusCode.NotFound;
+                    baseResponse.Description = "User not found";
+                }
+
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>
+                {
+                    StatusCode = StatusCode.InternalServerError,
+                    Description = $"[Edit(User)] : {ex.Message})"
+                };
+            }
+        }
         public async Task<BaseResponse<ClaimsIdentity>> Registr(RegistrViewModel model)
         {
             try
@@ -280,7 +302,6 @@ namespace Service.Implementations
                 };
             }
         }
-
         private ClaimsIdentity Authenticate(User user)
         {
             var claims = new List<Claim>
